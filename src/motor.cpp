@@ -50,13 +50,6 @@ void set_right_front(double input){
     RF.move(input);
 }
 
-void set_tank(double input_l, double input_r){
-    LB.move(input_l);
-    LF.move(input_l);
-    RF.move(input_r);
-    RB.move(input_r);
-}
-
 void drive_hold()
 {
     LB.set_brake_mode(MOTOR_BRAKE_HOLD);
@@ -77,18 +70,6 @@ void set_intake(int input)
 {
     r_intake.move(input);
     l_intake.move(input);
-}
-
-void intake_relative(int pos, int vel)
-{
-    l_intake.move_relative(pos, vel);
-    r_intake.move_relative(pos, vel);
-}
-
-void set_intake_speed(int32_t input)
-{
-    l_intake.set_voltage_limit(input);
-    r_intake.set_voltage_limit(input);
 }
 
 void intake_hold()
@@ -116,24 +97,24 @@ void reset_intake_encoder()
     r_intake.set_zero_position(0);
 }
 
-int get_left_drive_pos()
+int get_left_back_pos()
 {
     return LB.get_position();
 }
 
-int get_right_drive_pos()
+int get_right_back_pos()
 {
     return RB.get_position();
 }
 
-int get_left_drive_spe()
+int get_left_front_pos()
 {
-    return LB.get_actual_velocity() / 200 * 127;
+    return LF.get_position();
 }
 
-int get_right_drive_spe()
+int get_right_front_pos()
 {
-    return RB.get_actual_velocity() / 200 * 127;
+    return RF.get_position();
 }
 
 int get_left_intake_pos()
@@ -145,15 +126,6 @@ int get_right_intake_pos()
     return r_intake.get_position();
 }
 
-void sensors(void* param){
-    while(true){
-        std::cout << "left:  "<<chassisController->getModel()->getSensorVals()[0] << std::endl;
-        std::cout << "right: "<<chassisController->getModel()->getSensorVals()[1] << std::endl;
-
-        pros::delay(10);
-    }
-}
-
 void turnAng(float ang, float vel){
     LB.move_relative(ang*5, vel);
     LF.move_relative(ang*5, vel);
@@ -161,17 +133,8 @@ void turnAng(float ang, float vel){
     RF.move_relative(-ang*5, vel);
 }
 
-void swingTurn(float lAng, float rAng, float lVel, float rVel){
-    LB.move_relative(lAng*5, lVel);
-    LF.move_relative(lAng*5, lVel);
-    RB.move_relative(rAng*5, rVel);
-    RF.move_relative(rAng*5, rVel);
-}
-
 void reset_all_encoders()
 {
     reset_drive_encoder();
-	reset_tray_encoder();
-	reset_arm_encoder();
 	reset_intake_encoder();
 }

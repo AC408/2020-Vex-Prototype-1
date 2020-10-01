@@ -44,3 +44,13 @@ void drive_control(void *)
         pros::delay(20);
     }
 }
+
+void intake_control(void *)
+{
+
+}
+
+void conveyor_control(void *)
+{
+    
+}

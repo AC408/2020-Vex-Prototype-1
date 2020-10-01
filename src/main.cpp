@@ -32,8 +32,6 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	pros::Task output(sensors, nullptr, "name");
-
 }
 
 void opcontrol()
@@ -42,10 +40,11 @@ void opcontrol()
 	pros::Controller master(CONTROLLER_MASTER);
 
 	pros::Task drive_control_t(drive_control, nullptr, "name");
+	pros::Task intake_control_t(intake_control, nullptr, "name");
+	pros::Task conveyor_control_t(conveyor_control, nullptr, "name");
 
 	while (true)
 	{
-		pros::lcd::set_text(1, "Selector Value: " + std::to_string(selector));
 		pros::delay(20);
 	}
 }
