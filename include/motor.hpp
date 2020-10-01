@@ -13,6 +13,10 @@ extern int selector;
 int sgn(int input);
 int clipnum(int input, int clip);
 
+void set_left_back(double input);
+void set_left_front(double input);
+void set_right_back(double input);
+void set_right_front(double input);
 void set_tank(double input_l, double input_r);
 void drive_hold();
 void drive_coast();

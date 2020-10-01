@@ -1,14 +1,14 @@
 #include "main.h"
 
 //Motors
-pros::Motor lb_drive(11, MOTOR_GEARSET_18, true);
-pros::Motor lf_drive(12, MOTOR_GEARSET_18, true);
-pros::Motor rf_drive(9, MOTOR_GEARSET_18);
-pros::Motor rb_drive(10, MOTOR_GEARSET_18);
+pros::Motor LB(11, MOTOR_GEARSET_18, true);
+pros::Motor LF(12, MOTOR_GEARSET_18, true);
+pros::Motor RF(9, MOTOR_GEARSET_18);
+pros::Motor RB(10, MOTOR_GEARSET_18);
 pros::Motor l_intake(19, MOTOR_GEARSET_18);
 pros::Motor r_intake(17, MOTOR_GEARSET_18, true);
-pros::Motor tray(8, MOTOR_GEARSET_18);
-pros::Motor arm(15, MOTOR_GEARSET_18, true);
+pros::Motor l_convey(8, MOTOR_GEARSET_18);
+pros::Motor r_convey(15, MOTOR_GEARSET_18, true);
 
 //Sensors
 pros::ADIPotentiometer tray_pot(1);
@@ -34,27 +34,43 @@ int clipnum(int input, int clip)
 }
 
 //Set Motors
+void set_left_back(double input){
+    LB.move(input);
+}
+
+void set_left_front(double input){
+    LF.move(input);
+}
+
+void set_right_back(double input){
+    RB.move(input);
+}
+
+void set_right_front(double input){
+    RF.move(input);
+}
+
 void set_tank(double input_l, double input_r){
-    lb_drive.move(input_l);
-    lf_drive.move(input_l);
-    rf_drive.move(input_r);
-    rb_drive.move(input_r);
+    LB.move(input_l);
+    LF.move(input_l);
+    RF.move(input_r);
+    RB.move(input_r);
 }
 
 void drive_hold()
 {
-    lb_drive.set_brake_mode(MOTOR_BRAKE_HOLD);
-    lf_drive.set_brake_mode(MOTOR_BRAKE_HOLD);
-    rf_drive.set_brake_mode(MOTOR_BRAKE_HOLD);
-    rb_drive.set_brake_mode(MOTOR_BRAKE_HOLD);
+    LB.set_brake_mode(MOTOR_BRAKE_HOLD);
+    LF.set_brake_mode(MOTOR_BRAKE_HOLD);
+    RF.set_brake_mode(MOTOR_BRAKE_HOLD);
+    RB.set_brake_mode(MOTOR_BRAKE_HOLD);
 }
 
 void drive_coast()
 {
-    lb_drive.set_brake_mode(MOTOR_BRAKE_COAST);
-    lf_drive.set_brake_mode(MOTOR_BRAKE_COAST);
-    rf_drive.set_brake_mode(MOTOR_BRAKE_COAST);
-    rb_drive.set_brake_mode(MOTOR_BRAKE_COAST);
+    LB.set_brake_mode(MOTOR_BRAKE_COAST);
+    LF.set_brake_mode(MOTOR_BRAKE_COAST);
+    RF.set_brake_mode(MOTOR_BRAKE_COAST);
+    RB.set_brake_mode(MOTOR_BRAKE_COAST);
 }
 
 void set_intake(int input)
@@ -90,8 +106,8 @@ void intake_coast()
 //Sensors
 void reset_drive_encoder()
 {
-   lb_drive.set_zero_position(0);
-   rb_drive.set_zero_position(0);
+   LB.set_zero_position(0);
+   RB.set_zero_position(0);
 }
 
 void reset_intake_encoder()
@@ -102,22 +118,22 @@ void reset_intake_encoder()
 
 int get_left_drive_pos()
 {
-    return lb_drive.get_position();
+    return LB.get_position();
 }
 
 int get_right_drive_pos()
 {
-    return rb_drive.get_position();
+    return RB.get_position();
 }
 
 int get_left_drive_spe()
 {
-    return lb_drive.get_actual_velocity() / 200 * 127;
+    return LB.get_actual_velocity() / 200 * 127;
 }
 
 int get_right_drive_spe()
 {
-    return rb_drive.get_actual_velocity() / 200 * 127;
+    return RB.get_actual_velocity() / 200 * 127;
 }
 
 int get_left_intake_pos()
@@ -139,17 +155,17 @@ void sensors(void* param){
 }
 
 void turnAng(float ang, float vel){
-    lb_drive.move_relative(ang*5, vel);
-    lf_drive.move_relative(ang*5, vel);
-    rb_drive.move_relative(-ang*5, vel);
-    rf_drive.move_relative(-ang*5, vel);
+    LB.move_relative(ang*5, vel);
+    LF.move_relative(ang*5, vel);
+    RB.move_relative(-ang*5, vel);
+    RF.move_relative(-ang*5, vel);
 }
 
 void swingTurn(float lAng, float rAng, float lVel, float rVel){
-    lb_drive.move_relative(lAng*5, lVel);
-    lf_drive.move_relative(lAng*5, lVel);
-    rb_drive.move_relative(rAng*5, rVel);
-    rf_drive.move_relative(rAng*5, rVel);
+    LB.move_relative(lAng*5, lVel);
+    LF.move_relative(lAng*5, lVel);
+    RB.move_relative(rAng*5, rVel);
+    RF.move_relative(rAng*5, rVel);
 }
 
 void reset_all_encoders()

@@ -21,7 +21,7 @@ void turn(int target)
         r_error = -target - (get_right_drive_pos() - r_first);
 
         //Set motors to error*kp (p controller)
-        set_slow_tank((l_error * kp) + (sgn(l_error) + 10), (r_error * kp) + (sgn(r_error) + 10));
+        set_tank((l_error * kp) + (sgn(l_error) + 10), (r_error * kp) + (sgn(r_error) + 10));
 
         pros::delay(10);
     }
@@ -56,5 +56,5 @@ void auton_1(){
 }
 
 void auton_2(){
-    
+
 }
