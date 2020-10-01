@@ -11,8 +11,8 @@ pros::Motor l_convey(8, MOTOR_GEARSET_18);
 pros::Motor r_convey(15, MOTOR_GEARSET_18, true);
 
 //Sensors
-pros::ADIPotentiometer tray_pot(1);
-pros::ADIPotentiometer auton_selector(2);
+pros::ADIAnalogIn intake(1);
+pros::ADIAnalogIn convey(2);
 
 //Math
 int sgn(int input)
@@ -22,15 +22,6 @@ int sgn(int input)
     else if (input < 0)
         return -1;
     return 0;
-}
-
-int clipnum(int input, int clip)
-{
-    if (input > clip)
-        return clip;
-    else if (input < clip)
-        return -clip;
-    return input;
 }
 
 //Set Motors
@@ -126,15 +117,36 @@ int get_right_intake_pos()
     return r_intake.get_position();
 }
 
-void turnAng(float ang, float vel){
-    LB.move_relative(ang*5, vel);
-    LF.move_relative(ang*5, vel);
-    RB.move_relative(-ang*5, vel);
-    RF.move_relative(-ang*5, vel);
+double get_convey_line(){
+    return convey.get_value();
+}
+
+double get_intake_line(){
+    return intake.get_value();
+}
+
+void set_convey(double target){
+    l_convey.move(target);
+    r_convey.move(target);
+}
+
+double get_convey_pos(){
+    return (l_convey.get_position()+r_convey.get_position())/2;
+}
+
+void reset_convey(){
+    l_convey.set_zero_position(0);
+    r_convey.set_zero_position(0);
 }
 
 void reset_all_encoders()
 {
     reset_drive_encoder();
 	reset_intake_encoder();
+    reset_convey();
+}
+
+void calibrate(){
+    intake.calibrate();
+    convey.calibrate();
 }
