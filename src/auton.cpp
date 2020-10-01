@@ -2,21 +2,25 @@
 
 double d_ratio = 3.25;
 
-void chassis_time(double volt, double time, bool turn){
-    double sign = 0;
-    if(turn){
-        sign = -1;
-    } else {
-        sign = 1;
-    }
-
+void forward_time(double volt, double time){
     set_left_back(volt);
     set_left_front(volt);
-    set_right_back(sign*volt);
-    set_right_front(sign*volt);
-
+    set_right_back(volt);
+    set_right_front(volt);
     pros::delay(time);
 
+    set_left_front(0);
+    set_left_back(0);
+    set_right_front(0);
+    set_right_back(0);
+}
+
+void turn_time(double volt, double time){ //clockwise is positive
+    set_left_back(volt);
+    set_left_front(volt);
+    set_right_back(-volt);
+    set_right_front(-volt);
+    pros::delay(time);
     set_left_front(0);
     set_left_back(0);
     set_right_front(0);
