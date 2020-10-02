@@ -1,14 +1,14 @@
 #include "main.h"
 
 //Motors
-pros::Motor LB(11, MOTOR_GEARSET_18, true);
-pros::Motor LF(12, MOTOR_GEARSET_18, true);
-pros::Motor RF(9, MOTOR_GEARSET_18);
-pros::Motor RB(10, MOTOR_GEARSET_18);
-pros::Motor l_intake(19, MOTOR_GEARSET_18);
-pros::Motor r_intake(17, MOTOR_GEARSET_18, true);
-pros::Motor l_convey(8, MOTOR_GEARSET_18);
-pros::Motor r_convey(15, MOTOR_GEARSET_18, true);
+pros::Motor LB(11, MOTOR_GEARSET_18);
+pros::Motor LF(12, MOTOR_GEARSET_18);
+pros::Motor RF(19, MOTOR_GEARSET_18, true);
+pros::Motor RB(18, MOTOR_GEARSET_18, true);
+pros::Motor l_intake(14, MOTOR_GEARSET_6, true);
+pros::Motor r_intake(15, MOTOR_GEARSET_6);
+pros::Motor l_convey(13, MOTOR_GEARSET_18, true);
+pros::Motor r_convey(17, MOTOR_GEARSET_18);
 
 //Sensors
 pros::ADIAnalogIn intake(1);

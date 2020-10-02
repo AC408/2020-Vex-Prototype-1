@@ -35,6 +35,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
+	forward_time(12, 500);
 }
 
 // pros::Controller master(CONTROLLER_MASTER);
@@ -84,13 +85,13 @@ void opcontrol()
 		//chassis
 		
 		//lin motion
-		float leftBack = master.get_analog(ANALOG_RIGHT_Y)-master.get_analog(ANALOG_RIGHT_X);
-		float leftFront = master.get_analog(ANALOG_RIGHT_Y)+master.get_analog(ANALOG_RIGHT_X);
-		float rightFront = master.get_analog(ANALOG_RIGHT_Y)-master.get_analog(ANALOG_RIGHT_X);
-		float rightBack = master.get_analog(ANALOG_RIGHT_Y)+master.get_analog(ANALOG_RIGHT_X);
+		float leftBack = master.get_analog(ANALOG_LEFT_Y)-master.get_analog(ANALOG_LEFT_X);
+		float leftFront = master.get_analog(ANALOG_LEFT_Y)+master.get_analog(ANALOG_LEFT_X);
+		float rightFront = master.get_analog(ANALOG_LEFT_Y)-master.get_analog(ANALOG_LEFT_X);
+		float rightBack = master.get_analog(ANALOG_LEFT_Y)+master.get_analog(ANALOG_LEFT_X);
 		float motorPwd[4] = {leftBack,leftFront,rightFront,rightBack};
-		if(abs(master.get_analog(ANALOG_RIGHT_X)+abs(master.get_analog(ANALOG_RIGHT_Y)))>(127*2)){
-			float max = abs(master.get_analog(ANALOG_RIGHT_X))+abs(master.get_analog(ANALOG_LEFT_X));
+		if(abs(master.get_analog(ANALOG_LEFT_X)+abs(master.get_analog(ANALOG_LEFT_Y)))>(127*2)){
+			float max = abs(master.get_analog(ANALOG_LEFT_X))+abs(master.get_analog(ANALOG_RIGHT_Y));
 			for(int i = 0; i < 4; i++){
 				motorPwd[i]*= 127/max; //proportion motor to each other and max voltage
 			}
@@ -98,10 +99,10 @@ void opcontrol()
 
 		//add rotation
 		float max = 0;
-		leftBack+=master.get_analog(ANALOG_LEFT_Y);
-		leftFront+=master.get_analog(ANALOG_LEFT_Y);
-		rightFront-=master.get_analog(ANALOG_LEFT_Y);
-		rightBack-=master.get_analog(ANALOG_LEFT_Y);
+		leftBack+=master.get_analog(ANALOG_RIGHT_X);
+		leftFront+=master.get_analog(ANALOG_RIGHT_X);
+		rightFront-=master.get_analog(ANALOG_RIGHT_X);
+		rightBack-=master.get_analog(ANALOG_RIGHT_X);
 		for(int i = 0; i < 4; i++){ //find max power
 			if(abs(motorPwd[i])>127){
 				max = abs(motorPwd[i]);
@@ -120,18 +121,18 @@ void opcontrol()
 		
 
 		//intake
-		if(master.get_digital(DIGITAL_L1)){
+		if(master.get_digital(DIGITAL_R1)){
 			set_intake(127);
-		} else if(master.get_digital(DIGITAL_L2)){
+		} else if(master.get_digital(DIGITAL_R2)){
 			set_intake(-127);
 		} else {
 			set_intake(0);
 		}
 
 		//conveyor
-		if(master.get_digital(DIGITAL_R1)){
+		if(master.get_digital(DIGITAL_L1)){
 			set_convey(127);
-		} else if(master.get_digital(DIGITAL_R2)){
+		} else if(master.get_digital(DIGITAL_L2)){
 			set_convey(-127);
 		} else {
 			set_convey(0);
