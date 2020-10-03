@@ -112,16 +112,22 @@ void strafe_left(double target){
     }
 }
 
+void score(int ball){
+    convey_time(100,400);
+    intake_time(100,100*ball);
+    forward_time(-50,100);
+    turn_time(50,200);
+    intake_time(-127,100*ball+100);
+
+}
 
 
-
-
-
-
+//----------------------------------------------------------------
 
 void preauton()
 {
     drive_hold();
+    intake_time(100,100);
 }
 
 void test(){
@@ -129,6 +135,120 @@ void test(){
 
 
 void skill(){
+    preauton(); //first goal
+
+    set_intake(127); //second goal
+    forward_time(70,700);
+    convey_time(100,100);
+    turn_time(50,200);
+    forward_time(50,700);
+    convey_time(100,100);
+    forward_time(-50,700);
+    turn_time(50,600);
+    set_intake(0);
+    forward_time(50,750);
+    score(2);
+    forward_time(-100,1000);
+    turn_time(-50,600);
+
+    set_intake(127); //third goal
+    forward_time(50,600);
+    convey_time(100,100);
+    turn_time(50,600);
+    forward_time(50,400);
+    convey_time(100,100);
+    set_intake(0);
+    forward_time(50,200);
+    score(1);
+    turn_time(-70,600);
+
+    set_intake(127); //fourth goal
+    forward_time(70,1200);
+    convey_time(100,100);
+    turn_time(50,400);
+    forward_time(70,700);
+    convey_time(100,100);
+    forward_time(-70,700);
+    turn_time(-50,200);
+    set_intake(0);
+    forward_time(50,750);
+    score(2);
+    turn_time(-70,850);
+
+    set_intake(127); //fifth goal
+    forward_time(70,1200);
+    convey_time(100,100);
+    turn_time(50,400);
+    set_intake(0);
+    forward_time(50,700);
+    score(1);
+    turn_time(-50,400);
+ 
+    set_intake(127); //sixth goal
+    forward_time(70,700);
+    convey_time(100,100);
+    turn_time(-50,200);
+    forward_time(70,700);
+    convey_time(100,100);
+    forward_time(-70,500);
+    turn_time(50,300);
+    set_intake(0);
+    forward_time(50,700);
+    score(2);
+    forward_time(-100,1000);
+    turn_time(-50,600);
+
+    set_intake(127); //seventh goal
+    forward_time(70,600);
+    convey_time(100,100);
+    turn_time(50,600);
+    forward_time(70,400);
+    convey_time(100,100);
+    set_intake(0);
+    forward_time(50,200);
+    score(1);
+    turn_time(-70,600);
+
+    set_intake(127); //eighth goal
+    forward_time(70,1200);
+    convey_time(100,100);
+    turn_time(50,400);
+    forward_time(70,700);
+    convey_time(100,100);
+    forward_time(-70,700);
+    turn_time(-50,200);
+    set_intake(0);
+    forward_time(50,750);
+    score(2);
+    turn_time(-70,850);
+
+    set_intake(127); //ninth goal
+    forward_time(70,900);
+    convey_time(100,100);
+    turn_time(50,600);
+    set_intake(0);
+
+    //descore mid
+    double sign = 0;
+    for(int i = 0; i<5; i++){
+        if(i%2==0){
+            sign = -1;
+        } else {
+            sign = 1;
+        }
+        forward_time(50*sign,400);
+    }
+    
+    //descore first goal
+    forward_time(50,700);
+    intake_time(100,100);
+
+    //score mid
+    forward_time(-70,300);
+    intake_time(-127,100);
+    turn_time(50,800);
+    forward_time(50,1200);
+    convey_time(100,400);
 
 }
 
