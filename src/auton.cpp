@@ -141,92 +141,92 @@ void skill(){
     set_intake(127); //second goal
     forward_time(70,700);
     convey_time(100,100);
-    turn_time(8,270);
+    turn_time(80,270);
     forward_time(50,700);
     convey_time(100,100);
     forward_time(-50,700);
-    turn_time(8,270);
+    turn_time(80,270);
     set_intake(0);
     forward_time(50,750);
     score(2);
     forward_time(-100,1000);
-    turn_time(-8,370);
+    turn_time(-80,370);
 
     set_intake(127); //third goal
     forward_time(50,600);
     convey_time(100,100);
-    turn_time(8,270);
+    turn_time(80,270);
     forward_time(50,400);
     convey_time(100,100);
     set_intake(0);
     forward_time(50,200);
     score(1);
-    turn_time(-8,645);
+    turn_time(-80,645);
 
     set_intake(127); //fourth goal
     forward_time(70,1200);
     convey_time(100,100);
-    turn_time(8,545);
+    turn_time(80,545);
     forward_time(70,700);
     convey_time(100,100);
     forward_time(-70,700);
-    turn_time(-8,270);
+    turn_time(-80,270);
     set_intake(0);
     forward_time(50,750);
     score(2);
-    turn_time(-8,880);
+    turn_time(-80,880);
 
     set_intake(127); //fifth goal
     forward_time(70,1200);
     convey_time(100,100);
-    turn_time(8,780);
+    turn_time(80,780);
     set_intake(0);
     forward_time(50,700);
     score(1);
-    turn_time(-8,645);
+    turn_time(-80,645);
  
     set_intake(127); //sixth goal
     forward_time(70,700);
     convey_time(100,100);
-    turn_time(-8,270);
+    turn_time(-80,270);
     forward_time(70,700);
     convey_time(100,100);
     forward_time(-70,500);
-    turn_time(8,270);
+    turn_time(80,270);
     set_intake(0);
     forward_time(50,700);
     score(2);
     forward_time(-100,1000);
-    turn_time(-8,370);
+    turn_time(-80,370);
 
     set_intake(127); //seventh goal
     forward_time(70,600);
     convey_time(100,100);
-    turn_time(8,270);
+    turn_time(80,270);
     forward_time(70,400);
     convey_time(100,100);
     set_intake(0);
     forward_time(50,200);
     score(1);
-    turn_time(-8,645);
+    turn_time(-80,645);
 
     set_intake(127); //eighth goal
     forward_time(70,1200);
     convey_time(100,100);
-    turn_time(8,545);
+    turn_time(80,545);
     forward_time(70,700);
     convey_time(100,100);
     forward_time(-70,700);
-    turn_time(-8,270);
+    turn_time(-80,270);
     set_intake(0);
     forward_time(50,750);
     score(2);
-    turn_time(-8,880);
+    turn_time(-80,880);
 
     set_intake(127); //ninth goal
     forward_time(70,900);
     convey_time(100,100);
-    turn_time(8,780);
+    turn_time(80,780);
     set_intake(0);
 
     //descore mid
@@ -247,7 +247,7 @@ void skill(){
     //score mid
     forward_time(-70,300);
     intake_time(-127,100);
-    turn_time(8,1050);
+    turn_time(80,1050);
     forward_time(50,1200);
     convey_time(100,400);
 
