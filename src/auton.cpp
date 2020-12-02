@@ -2,21 +2,20 @@
 
 double d_ratio = 3.25;
 
-void forward_time(double volt, double time){
-    set_left_back(volt);
-    set_left_front(volt);
-    set_right_back(volt);
-    set_right_front(volt);
-    pros::delay(time);
+void forward(double target){
 
-    set_left_front(0);
-    set_left_back(0);
-    set_right_front(0);
-    set_right_back(0);
 }
 
-void turn_time(double volt, double time){ //clockwise is positive
-//where 8 volt at 545 ms is 90 degrees
+void turn(double target){
+    double g_angle = 0;
+    double threshold = 5;
+    double kP = 0;
+    double kD = 0;
+    while(true){
+        if(abs(abs(g_angle)-abs(target))>threshold){
+            
+        }
+    }
     set_left_back(volt);
     set_left_front(volt);
     set_right_back(-volt);
