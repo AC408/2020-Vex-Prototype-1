@@ -8,11 +8,9 @@ pros::Motor RB(18, MOTOR_GEARSET_18, true);
 pros::Motor LB2(10, MOTOR_GEARSET_18, true);
 pros::Motor RB2(9, MOTOR_GEARSET_18);
 pros::Motor Intake(14, MOTOR_GEARSET_6, true);
-pros::Motor Convey(13, MOTOR_GEARSET_18, true);
+pros::Motor Index(13, MOTOR_GEARSET_18, true);
 
-//Sensors
-pros::ADIAnalogIn intake(1);
-pros::ADIAnalogIn convey(2);
+okapi::
 
 //Math
 int sgn(int input)
