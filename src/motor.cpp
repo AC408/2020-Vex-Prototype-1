@@ -10,7 +10,7 @@ pros::Motor RB2(9, MOTOR_GEARSET_18);
 pros::Motor Intake(14, MOTOR_GEARSET_6, true);
 pros::Motor Index(13, MOTOR_GEARSET_18, true);
 
-okapi::
+okapi::IMU imu(1);
 
 //Math
 int sgn(int input)
@@ -22,7 +22,7 @@ int sgn(int input)
     return 0;
 }
 
-//Set Motors
+//chassis
 void set_left(double input){
     LB.move(input);
     LB2.move(input);
@@ -55,6 +55,40 @@ void drive_coast()
     LB2.set_brake_mode(MOTOR_BRAKE_COAST);
 }
 
+double get_left_pos()
+{
+    return (LB.get_position()+LF.get_position()+LB2.get_position())/3;
+}
+
+double get_right_pos()
+{
+    return (RB.get_position()+RF.get_position()+RB2.get_position())/3;
+}
+
+void reset_drive_encoder()
+{
+    LB.set_zero_position(0);
+    RB.set_zero_position(0);
+    RB2.set_zero_position(0);
+    LB2.set_zero_position(0);
+    RF.set_zero_position(0);
+    LF.set_zero_position(0);
+}
+
+//imu
+void calibrate(){
+    imu.calibrate();
+}
+
+void get_angle(){
+    imu.get();
+}
+
+void reset_imu(){
+    imu.reset();
+}
+
+//intake
 void set_intake(int input)
 {
     Intake.move(input);
@@ -70,65 +104,42 @@ void intake_coast()
     Intake.set_brake_mode(MOTOR_BRAKE_COAST);
 }
 
-//Sensors
-void reset_drive_encoder()
-{
-    LB.set_zero_position(0);
-    RB.set_zero_position(0);
-    RB2.set_zero_position(0);
-    LB2.set_zero_position(0);
-    RF.set_zero_position(0);
-    LF.set_zero_position(0);
-}
-
-void reset_intake_encoder()
-{
-    Intake.set_zero_position(0);
-}
-
-int get_left_pos()
-{
-    return (LB.get_position()+LF.get_position()+LB2.get_position())/3;
-}
-
-int get_right_pos()
-{
-    return (RB.get_position()+RF.get_position()+RB2.get_position())/3;
-}
-
-int get_intake_pos()
+double get_intake_pos()
 {
     return Intake.get_position();
 }
 
-double get_convey_line(){
-    return convey.get_value();
+void reset_intake(){
+    Intake.set_zero_position(0);
 }
 
-double get_intake_line(){
-    return intake.get_value();
+//index
+void set_index(double target){
+    Index.move(target);
 }
 
-void set_convey(double target){
-    Convey.move(target);
+double get_index_pos(){
+    return Index.get_position();
 }
 
-double get_convey_pos(){
-    return Convey.get_position();
+void reset_index(){
+    Index.set_zero_position(0);
 }
 
-void reset_convey(){
-    Convey.set_zero_position(0);
+void index_coast(){
+    Index.set_brake_mode(MOTOR_BRAKE_COAST);
 }
+
+void index_hold(){
+    Index.set_brake_mode(MOTOR_BRAKE_HOLD);
+}
+
+
 
 void reset_all_encoders()
 {
     reset_drive_encoder();
-	reset_intake_encoder();
-    reset_convey();
+	reset_intake();
+    reset_index();
 }
 
-void calibrate(){
-    intake.calibrate();
-    convey.calibrate();
-}
