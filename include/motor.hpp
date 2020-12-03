@@ -15,7 +15,7 @@ double get_left_pos();
 double get_right_pos();
 
 void calibrate();
-void get_angle();
+double get_angle();
 void reset_imu();
 
 void set_intake(int input);

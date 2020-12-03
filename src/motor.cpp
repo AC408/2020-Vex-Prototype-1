@@ -80,8 +80,8 @@ void calibrate(){
     imu.calibrate();
 }
 
-void get_angle(){
-    imu.get();
+double get_angle(){
+    return imu.get();
 }
 
 void reset_imu(){
@@ -134,8 +134,7 @@ void index_hold(){
     Index.set_brake_mode(MOTOR_BRAKE_HOLD);
 }
 
-
-
+//all
 void reset_all_encoders()
 {
     reset_drive_encoder();

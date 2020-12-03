@@ -2,113 +2,84 @@
 
 double d_ratio = 3.25;
 
-void forward(double target){
+//power
+double left = 0;
+double right = 0;
+double left_ang = 0;
+double right_ang = 0;
 
+//states
+int state = 0;
+bool angle_state = false;
+bool drive_state = false; 
+
+//drive function
+double desired_angle = 0;
+void set_angle(double angle){
+    desired_angle = angle;
+    angle_state = true;
 }
 
-void turn(double target){
-    double g_angle = 0;
-    double threshold = 5;
-    double kP = 0;
-    double kD = 0;
+double desired_dist = 0;
+void set_dist(double dist){
+    desired_dist = dist;
+    drive_state = true;
+    angle_state = true;
+}
+
+void drive_control(void *)
+{
+    double kp_theta = 0;
+    double kd_theta = 0;
+    double kp = 0;
+    double kd = 0;
     while(true){
-        if(abs(abs(g_angle)-abs(target))>threshold){
-            
-        }
-    }
-    set_left_back(volt);
-    set_left_front(volt);
-    set_right_back(-volt);
-    set_right_front(-volt);
-    pros::delay(time);
-    set_left_front(0);
-    set_left_back(0);
-    set_right_front(0);
-    set_right_back(0);
-}
-
-void convey_time(double volt, double time){
-    set_convey(volt);
-    pros::delay(time);
-    set_intake(0);
-}
-
-void intake_time(double volt, double time){
-    set_intake(volt);
-    pros::delay(time);
-    set_intake(0);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-void turn(double target)
-{
-    //clockwise
-    target = target*d_ratio;
-    double curr = (get_left_front_pos() + get_right_back_pos())/2;
-    double err = target - curr;
-    double tol = 10;
-    int spe[7] = {15,30,45,60,80,100,127};
-    while(abs(err) > tol){        
-        double sign = sgn(err);
-        int input = int(err/10);
-        if(input >= 7){
-            input = 7;
-        }
-        set_left_back(sign*spe[input]);
-        set_left_front(sign*spe[input]);
-        set_right_back(sign*-spe[input]);
-        set_right_front(sign*-spe[input]);
-    }
-   
-}
-
-void forward(double target)
-{
-    target = target*d_ratio;
-    double curr = (get_left_front_pos() + get_right_front_pos())/2;
-    double err = target - curr;
-    double tol = 10;
-    int spe[7] = {15,30,45,60,80,100,127};
-    while(abs(err) > tol){        
-        double sign = sgn(err);
-        int input = int(err/10);
-        if(input >= 7){
-            input = 7;
-        }
-        set_left_back(sign*spe[input]);
-        set_left_front(sign*spe[input]);
-        set_right_back(sign*spe[input]);
-        set_right_front(sign*spe[input]);
-    }
-}
-
-void strafe_left(double target){
-    target = target*d_ratio;
-    double curr = (-get_left_front_pos() + get_left_back_pos())/2;
-    double err = target - curr;
-    double tol = 10;
-    int spe[7] = {15,30,45,60,80,100,127};
-    while(abs(err) > tol){        
-        double sign = sgn(err);
-        int input = int(err/10);
-        if(input >= 7){
-            input = 7;
-        }
-        set_left_back(sign*spe[input]);
-        set_left_front(-sign*spe[input]);
-        set_right_back(-sign*spe[input]);
-        set_right_front(sign*spe[input]);
+        switch(state){
+            case 1: //angle
+                double curr = get_angle();
+                double target_angle = desired_angle;
+                double tol = 10;
+                double err = 0;
+                if(abs(err)>tol){
+                    double last_err = 0;
+                    err = target_angle - curr;
+                    double proportion = kp_theta*err;
+                    double derivative = (err-last_err)*kd_theta;
+                    last_err = err;
+                    double power = proportion + derivative;
+                    left_ang = -(power);
+                    right_ang = power;
+                    angle_state = true; //angle not at position
+                    state = 1; 
+                } else{ //angle at position
+                    state = 0;
+                    angle_state = false;
+                } if(drive_state){ //drive necessity overwrites
+                    state = 2;
+                }
+            case 2: //drive
+                double curr = get_left_pos();
+                double target_dist = desired_dist*d_ratio;
+                double tol = 10;
+                double err = 0;
+                if(abs(err)>tol){
+                    double last_err = 0;
+                    err = target_dist - curr;
+                    double proportion = kp*err;
+                    double derivative = (err-last_err)*kd;
+                    last_err = err;
+                    double power = proportion + derivative;
+                    left = right = power;
+                    drive_state = true; //drive not at position
+                    state = 1; //relies on angle to exit loop -> if initially no error, drive will still check angle
+                } else{
+                    drive_state = false;
+                }
+            case 0: //no movement
+                left = right = left_ang = right_ang = 0;
+        } set_left(left+left_ang);
+        set_right(right+right_ang);
+        pros::delay(20);
     }
 }
 
@@ -120,7 +91,6 @@ void score(int ball){
     intake_time(-127,100*ball+100);
 
 }
-
 
 //----------------------------------------------------------------
 
