@@ -36,47 +36,52 @@ void drive_control(void *)
     while(true){
         switch(state){
             case 1: //angle
-                double curr = get_angle();
-                double target_angle = desired_angle;
-                double tol = 10;
-                double err = 0;
-                if(abs(err)>tol){
-                    double last_err = 0;
-                    err = target_angle - curr;
-                    double proportion = kp_theta*err;
-                    double derivative = (err-last_err)*kd_theta;
-                    last_err = err;
-                    double power = proportion + derivative;
-                    left_ang = -(power);
-                    right_ang = power;
-                    angle_state = true; //angle not at position
-                    state = 1; 
-                } else{ //angle at position
-                    state = 0;
-                    angle_state = false;
-                } if(drive_state){ //drive necessity overwrites
-                    state = 2;
+                {
+                    double curr = get_angle();
+                    double target_angle = desired_angle;
+                    double tol = 10;
+                    double err = 0;
+                    if(abs(err)>tol){
+                        double last_err = 0;
+                        err = target_angle - curr;
+                        double proportion = kp_theta*err;
+                        double derivative = (err-last_err)*kd_theta;
+                        last_err = err;
+                        double power = proportion + derivative;
+                        left_ang = -(power);
+                        right_ang = power;
+                        angle_state = true; //angle not at position
+                        state = 1; 
+                    } else{ //angle at position
+                        state = 0;
+                        angle_state = false;
+                    } if(drive_state){ //drive necessity overwrites
+                        state = 2;
+                    } break;
                 }
             case 2: //drive
-                double curr = get_left_pos();
-                double target_dist = desired_dist*d_ratio;
-                double tol = 10;
-                double err = 0;
-                if(abs(err)>tol){
-                    double last_err = 0;
-                    err = target_dist - curr;
-                    double proportion = kp*err;
-                    double derivative = (err-last_err)*kd;
-                    last_err = err;
-                    double power = proportion + derivative;
-                    left = right = power;
-                    drive_state = true; //drive not at position
-                    state = 1; //relies on angle to exit loop -> if initially no error, drive will still check angle
-                } else{
-                    drive_state = false;
+                {
+                    double curr = get_left_pos();
+                    double target_dist = desired_dist*d_ratio;
+                    double tol = 10;
+                    double err = 0;
+                    if(abs(err)>tol){
+                        double last_err = 0;
+                        err = target_dist - curr;
+                        double proportion = kp*err;
+                        double derivative = (err-last_err)*kd;
+                        last_err = err;
+                        double power = proportion + derivative;
+                        left = right = power;
+                        drive_state = true; //drive not at position
+                        state = 1; //relies on angle to exit loop -> if initially no error, drive will still check angle
+                    } else{
+                        drive_state = false;
+                    } break;
                 }
             case 0: //no movement
                 left = right = left_ang = right_ang = 0;
+                break;
         } set_left(left+left_ang);
         set_right(right+right_ang);
         pros::delay(20);
