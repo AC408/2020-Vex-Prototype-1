@@ -1,14 +1,14 @@
 #include "main.h"
 
 //Motors
-pros::Motor LB(11, MOTOR_GEARSET_18);
-pros::Motor LF(12, MOTOR_GEARSET_18);
-pros::Motor RF(19, MOTOR_GEARSET_18, true);
-pros::Motor RB(18, MOTOR_GEARSET_18, true);
-pros::Motor LB2(10, MOTOR_GEARSET_18, true);
-pros::Motor RB2(9, MOTOR_GEARSET_18);
-pros::Motor Intake(14, MOTOR_GEARSET_6, true);
-pros::Motor Index(13, MOTOR_GEARSET_18, true);
+pros::Motor LB(3, MOTOR_GEARSET_6),
+        LF(1, MOTOR_GEARSET_6),
+        RF(19, MOTOR_GEARSET_6, true),
+        RB(18, MOTOR_GEARSET_6, true),
+        LB2(10, MOTOR_GEARSET_6, true),
+        RB2(9, MOTOR_GEARSET_6),
+        Intake(14, MOTOR_GEARSET_18, true),
+        Index(2, MOTOR_GEARSET_6, true);
 
 okapi::IMU imu(1);
 
