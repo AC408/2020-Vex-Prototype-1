@@ -1,16 +1,16 @@
 #include "main.h"
 
 //Motors
-pros::Motor LB(3, MOTOR_GEARSET_6),
+pros::Motor LB(7, MOTOR_GEARSET_6),
         LF(1, MOTOR_GEARSET_6),
-        RF(19, MOTOR_GEARSET_6, true),
-        RB(18, MOTOR_GEARSET_6, true),
-        LB2(10, MOTOR_GEARSET_6, true),
-        RB2(9, MOTOR_GEARSET_6),
-        Intake(14, MOTOR_GEARSET_18, true),
+        RF(5, MOTOR_GEARSET_6, true),
+        RB(4, MOTOR_GEARSET_6, true),
+        LB2(9, MOTOR_GEARSET_6, true),
+        RB2(8, MOTOR_GEARSET_6),
+        Intake(3, MOTOR_GEARSET_18, true),
         Index(2, MOTOR_GEARSET_6, true);
 
-okapi::IMU imu(1);
+pros::Imu imu(6);
 
 //Math
 int sgn(int input)
@@ -77,15 +77,11 @@ void reset_drive_encoder()
 
 //imu
 void calibrate(){
-    imu.calibrate();
+    imu.reset();
 }
 
 double get_angle(){
-    return imu.get();
-}
-
-void reset_imu(){
-    imu.reset();
+    return imu.get_heading();
 }
 
 //intake
