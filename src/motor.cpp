@@ -1,12 +1,12 @@
 #include "main.h"
 
 //Motors
-pros::Motor LB(7, MOTOR_GEARSET_6),
-        LF(1, MOTOR_GEARSET_6),
-        RF(5, MOTOR_GEARSET_6, true),
-        RB(4, MOTOR_GEARSET_6, true),
-        LB2(9, MOTOR_GEARSET_6, true),
-        RB2(8, MOTOR_GEARSET_6),
+pros::Motor LB(7, MOTOR_GEARSET_6, true),
+        LF(1, MOTOR_GEARSET_6, true),
+        RF(5, MOTOR_GEARSET_6),
+        RB(4, MOTOR_GEARSET_6),
+        LB2(9, MOTOR_GEARSET_6),
+        RB2(8, MOTOR_GEARSET_6, true),
         Intake(3, MOTOR_GEARSET_18, true),
         Index(2, MOTOR_GEARSET_6, true);
 

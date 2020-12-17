@@ -17,11 +17,11 @@ void score_control(void *)
                 set_intake(0);
                 break;
             case 3: //hold balls
-                set_index(-50);
+                set_index(-127);
                 set_intake(127);
                 break;
             case 4: //de-intake
-                set_index(-50);
+                set_index(0);
                 set_intake(-127);
                 break;
             case 0: 
