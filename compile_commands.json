@@ -5,15 +5,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/backward",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include-fixed",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/./",
             "-mcpu=cortex-a9",
@@ -31,10 +28,10 @@
             "--std=gnu++17",
             "-o",
             "bin/main.cpp.o",
-            "src\\main.cpp"
+            "src/main.cpp"
         ],
-        "directory": "C:\\Users\\yuany\\OneDrive\\Documents\\GitHub\\2020-Vex-Prototype-1",
-        "file": "src\\main.cpp"
+        "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
+        "file": "src/main.cpp"
     },
     {
         "arguments": [
@@ -42,15 +39,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/backward",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include-fixed",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/./",
             "-mcpu=cortex-a9",
@@ -68,10 +62,10 @@
             "--std=gnu++17",
             "-o",
             "bin/auton.cpp.o",
-            "src\\auton.cpp"
+            "src/auton.cpp"
         ],
-        "directory": "C:\\Users\\yuany\\OneDrive\\Documents\\GitHub\\2020-Vex-Prototype-1",
-        "file": "src\\auton.cpp"
+        "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
+        "file": "src/auton.cpp"
     },
     {
         "arguments": [
@@ -79,15 +73,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/backward",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include-fixed",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/./",
             "-mcpu=cortex-a9",
@@ -105,10 +96,10 @@
             "--std=gnu++17",
             "-o",
             "bin/motor.cpp.o",
-            "src\\motor.cpp"
+            "src/motor.cpp"
         ],
-        "directory": "C:\\Users\\yuany\\OneDrive\\Documents\\GitHub\\2020-Vex-Prototype-1",
-        "file": "src\\motor.cpp"
+        "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
+        "file": "src/motor.cpp"
     },
     {
         "arguments": [
@@ -116,15 +107,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/arm-none-eabi/thumb/v7-ar/fpv3/softfp",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include/c++/7.2.1/backward",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
-            "-isystemc:\\users\\yuany\\appdata\\local\\programs\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include/c++/9.3.1/backward",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/include-fixed",
+            "-isystem/usr/local/Cellar/arm-gcc-bin/9-2020-q2-update/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/./",
             "-mcpu=cortex-a9",
@@ -142,9 +130,9 @@
             "--std=gnu++17",
             "-o",
             "bin/subsystems.cpp.o",
-            "src\\subsystems.cpp"
+            "src/subsystems.cpp"
         ],
-        "directory": "C:\\Users\\yuany\\OneDrive\\Documents\\GitHub\\2020-Vex-Prototype-1",
-        "file": "src\\subsystems.cpp"
+        "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
+        "file": "src/subsystems.cpp"
     }
 ]

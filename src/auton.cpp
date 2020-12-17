@@ -27,6 +27,81 @@ void set_dist(double dist){
     angle_state = true;
 }
 
+double velCap = 0;
+double dist = 0;
+void target_drive(double distance){
+   dist = distance;
+   velCap = 0;
+}
+ 
+void forward(void*){
+   double kp = 0;
+   double kd = 0;
+   double kp_theta = 0;
+   double curr_angle = get_angle();
+   double theta_threshold = 1;
+   double dist_threshold = 1;
+   double curr_left = get_left_pos();
+   double acc = 5;
+   double vel_lim = 0;
+   while(true){
+       double left = 0;
+       double right = 0;
+       if(abs(curr_angle-get_angle())>theta_threshold){
+           double theta_err = get_angle()-curr_angle;
+           right += kp_theta*theta_err;
+           left -= kp_theta*theta_err;
+       }
+       double relative = get_left_pos()-curr_left;
+       if(abs(relative-dist)>dist_threshold){
+           double err = relative-dist;
+           double left_dist = err*kp;
+           velCap+=acc;
+           if(velCap>vel_lim){
+               velCap = vel_lim;
+           }
+           if(abs(left_dist) > velCap){
+               left_dist = velCap * sgn(left_dist);
+           }
+           right += left_dist;
+           left += left_dist;
+       } set_left(left);
+       set_right(right);
+       pros::delay(20);
+   }
+}
+ 
+double omegaCap = 0;
+double angle = 0;
+void target_theta(double theta){
+   angle = theta;
+   omegaCap = 0;
+}
+ 
+void turn(void*){
+   double kp = 0;
+   double kd = 0;
+   double curr_angle = get_angle();
+   double theta_threshold = 1;
+   double alpha = 5;
+   double omega_lim = 0;
+   while(true){
+       if(abs(get_angle()-curr_angle)>theta_threshold){
+           double theta_err = get_angle()-curr_angle;
+           double right = theta_err*kp;
+           omegaCap+=alpha;
+           if(omegaCap>omega_lim){
+               omegaCap = omega_lim;
+           }
+           if(abs(left) > velCap){
+               right = velCap * sgn(right);
+           }
+       } set_left(-right);
+       set_right(right);
+       pros::delay(20);
+   }
+}
+
 void drive_control(void *)
 {
     double kp_theta = 0;

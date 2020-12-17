@@ -1,6 +1,8 @@
 #include "main.h"
 
 pros::Task drive_control_t(drive_control, nullptr, "name");
+pros::Task forward_t(forward, nullptr, "name");
+pros::Task turn_t(turn, nullptr, "name");
 
 void initialize()
 {
@@ -10,6 +12,7 @@ void initialize()
 	calibrate();
 	pros::delay(200);
 	pros::Task score_control_t(score_control, nullptr, "name");
+	pros::Task sensor_t(sensors, nullptr, "name");
 
 }
 
@@ -24,6 +27,9 @@ void autonomous()
 void opcontrol()
 {
 	drive_control_t.remove();
+	forward_t.remove();
+	turn_t.remove();
+
 	pros::Controller master(CONTROLLER_MASTER);
 
 	while(true){

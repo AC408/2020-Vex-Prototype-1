@@ -33,3 +33,14 @@ void score_control(void *)
         } pros::delay(20);
     }
 }
+
+void sensors(void*){
+    while(1){
+        pros::lcd::set_text(1, "heading"+std::to_string(get_angle()));
+        pros::lcd::set_text(2, "l_encoder"+std::to_string(get_left_pos()));
+        pros::lcd::set_text(3, "r_encoder"+std::to_string(get_right_pos()));
+        pros::lcd::set_text(4, "intake"+std::to_string(get_intake_pos()));
+        pros::lcd::set_text(5, "indexer"+std::to_string(get_index_pos()));
+        pros::delay(100);
+    }
+}

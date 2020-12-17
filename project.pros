@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "GoofyGang",
+        "project_name": "REXhub",
         "target": "v5",
         "templates": {
             "gif-pros": {
