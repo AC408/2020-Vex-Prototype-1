@@ -21,7 +21,17 @@ void competition_initialize() {}
 
 void autonomous()
 {
-
+	calibrate();
+	set_index(-50);
+	pros::delay(2000);
+	set_left(-50);
+	set_right(50);
+	while(get_angle() < 90)
+    {
+        pros::delay(20);
+    }
+	set_left(0);
+	set_right(0);
 }
 
 void opcontrol()

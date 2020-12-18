@@ -5,4 +5,6 @@ void drive_control(void *);
 void forward(void *);
 void turn(void *);
 
+void p_turn(int angle);
+
 #endif
