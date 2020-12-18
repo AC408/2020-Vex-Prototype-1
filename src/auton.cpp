@@ -83,7 +83,7 @@ void turn(void*){
    double kd = 10;
    double curr_angle = get_angle();
    double theta_threshold = 0;
-   double alpha = 5;
+   double alpha = 10;
    double omega_lim = 100;
    while(true){
        if(abs(get_angle() - curr_angle) > theta_threshold){
