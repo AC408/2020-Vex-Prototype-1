@@ -21,7 +21,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	turn(90);
+	target_theta(1000);
 }
 
 void opcontrol()

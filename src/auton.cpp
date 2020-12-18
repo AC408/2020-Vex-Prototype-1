@@ -35,15 +35,15 @@ void target_drive(double distance){
 }
  
 void forward(void*){
-   double kp = 0;
-   double kd = 0;
-   double kp_theta = 0;
+   double kp = 10;
+   double kd = 10;
+   double kp_theta = 10;
    double curr_angle = get_angle();
-   double theta_threshold = 1;
-   double dist_threshold = 1;
+   double theta_threshold = 0;
+   double dist_threshold = 0;
    double curr_left = get_left_pos();
-   double acc = 5;
-   double vel_lim = 0;
+   double acc = 10;
+   double vel_lim = 100;
    while(true){
        double left = 0;
        double right = 0;
@@ -79,12 +79,12 @@ void target_theta(double theta){
 }
  
 void turn(void*){
-   double kp = 0.01;
-   double kd = 0;
+   double kp = 10;
+   double kd = 10;
    double curr_angle = get_angle();
-   double theta_threshold = 1;
+   double theta_threshold = 0;
    double alpha = 5;
-   double omega_lim = 50;
+   double omega_lim = 100;
    while(true){
        if(abs(get_angle() - curr_angle) > theta_threshold){
            double theta_err = get_angle() - curr_angle;
