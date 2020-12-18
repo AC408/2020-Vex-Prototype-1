@@ -79,44 +79,27 @@ void target_theta(double theta){
 }
  
 void turn(void*){
-   double kp = 0;
+   double kp = 0.01;
    double kd = 0;
    double curr_angle = get_angle();
    double theta_threshold = 1;
    double alpha = 5;
-   double omega_lim = 0;
+   double omega_lim = 50;
    while(true){
-       if(abs(get_angle()-curr_angle)>theta_threshold){
-           double theta_err = get_angle()-curr_angle;
-           double right = theta_err*kp;
+       if(abs(get_angle() - curr_angle) > theta_threshold){
+           double theta_err = get_angle() - curr_angle;
+           double right = theta_err * kp;
            omegaCap+=alpha;
            if(omegaCap>omega_lim){
                omegaCap = omega_lim;
            }
-           if(abs(left) > velCap){
-               right = velCap * sgn(right);
+           if(abs(left) > omegaCap){
+               right = omegaCap * sgn(right);
            }
        } set_left(-right);
        set_right(right);
        pros::delay(20);
    }
-}
-
-void p_turn(int angle)
-{
-    double kp = .1;
-    double error = 0;
-    set_index(50);
-    while(get_angle() < angle)
-    {
-        //error = angle - get_angle();
-        //set_left(-kp * error);
-        //set_right(kp * error);
-        set_left(-127);
-        set_right(127);
-        pros::delay(20);
-        set_index(100);
-    }
 }
 
 void drive_control(void *)
