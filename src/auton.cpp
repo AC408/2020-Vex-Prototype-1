@@ -26,15 +26,8 @@ void set_dist(double dist){
     drive_state = true;
     angle_state = true;
 }
-
-double velCap = 0;
-double dist = 0;
-void target_drive(double distance){
-   dist = distance;
-   velCap = 0;
-}
  
-void forward(void*){
+void forward(double dist){
    double kp = 10;
    double kd = 10;
    double kp_theta = 10;
@@ -44,6 +37,7 @@ void forward(void*){
    double curr_left = get_left_pos();
    double acc = 10;
    double vel_lim = 100;
+   double velCap = 0;
    while(true){
        double left = 0;
        double right = 0;
@@ -70,24 +64,19 @@ void forward(void*){
        pros::delay(20);
    }
 }
- 
-double omegaCap = 0;
-double angle = 0;
-void target_theta(double theta){
-   angle = theta;
-   omegaCap = 0;
-}
- 
-void turn(void*){
+  
+void turn(double angle){
    const double kp = .1; //kp value
    const double alpha = 10; //max accel
    const double omega_lim = 100; //max vel
-   double curr_angle = get_angle(); //grabs current angle
    double theta_threshold = 0; //tolerance
-   
+    
+   double omegaCap = 0;
+
    while(true)
    {
-       double theta_err = get_angle() - curr_angle; //calculates error
+       double curr_angle = get_angle(); //grabs current angle
+       double theta_err = angle-get_angle(); //calculates error
        if(abs(theta_err) > theta_threshold) //checks to see if we still need to be turning
        {
            double right = theta_err * kp; //sets motor power

@@ -1,8 +1,6 @@
 #include "main.h"
 
-pros::Task drive_control_t(drive_control, nullptr, "name");
-pros::Task forward_t(forward, nullptr, "name");
-pros::Task turn_t(turn, nullptr, "name");
+//pros::Task drive_control_t(drive_control, nullptr, "name");
 
 void initialize()
 {
@@ -21,14 +19,14 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	target_theta(50);
+	turn(50.0);
 }
 
 void opcontrol()
 {
-	drive_control_t.remove();
-	forward_t.remove();
-	turn_t.remove();
+	// drive_control_t.remove();
+	// forward_t.remove();
+	// turn_t.remove();
 
 	pros::Controller master(CONTROLLER_MASTER);
 
