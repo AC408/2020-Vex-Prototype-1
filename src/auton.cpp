@@ -79,8 +79,8 @@ void target_theta(double theta){
 }
  
 void turn(void*){
-   double kp = 10;
-   double kd = 10;
+   double kp = .1;
+   double kd = .1;
    double curr_angle = get_angle();
    double theta_threshold = 0;
    double alpha = 10;
@@ -89,14 +89,16 @@ void turn(void*){
        if(abs(get_angle() - curr_angle) > theta_threshold){
            double theta_err = get_angle() - curr_angle;
            double right = theta_err * kp;
-           omegaCap+=alpha;
-           if(omegaCap>omega_lim){
-               omegaCap = omega_lim;
+           omegaCap += alpha; //increments angular velocity with accel value
+           if(omegaCap > omega_lim){
+               omegaCap = omega_lim; //checks for values greater than the speed limit
            }
-           if(abs(left) > omegaCap){
+           if(abs(right) > omegaCap){
                right = omegaCap * sgn(right);
            }
-       } set_left(-right);
+       }
+       printf("%f", right);
+       set_left(-right);
        set_right(right);
        pros::delay(20);
    }

@@ -21,7 +21,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	target_theta(1000);
+	target_theta(50);
 }
 
 void opcontrol()
