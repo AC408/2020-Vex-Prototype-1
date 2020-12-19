@@ -95,11 +95,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/auton.cpp.o",
-            "src/auton.cpp"
+            "bin/motor.cpp.o",
+            "src/motor.cpp"
         ],
         "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
-        "file": "src/auton.cpp"
+        "file": "src/motor.cpp"
     },
     {
         "arguments": [
@@ -129,10 +129,10 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/motor.cpp.o",
-            "src/motor.cpp"
+            "bin/auton.cpp.o",
+            "src/auton.cpp"
         ],
         "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
-        "file": "src/motor.cpp"
+        "file": "src/auton.cpp"
     }
 ]

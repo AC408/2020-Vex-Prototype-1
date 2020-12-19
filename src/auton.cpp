@@ -28,72 +28,68 @@ void set_dist(double dist){
 }
  
 void forward(double dist){
-   double kp = 10;
-   double kd = 10;
-   double kp_theta = 10;
-   double curr_angle = get_angle();
-   double theta_threshold = 0;
-   double dist_threshold = 0;
-   double curr_left = get_left_pos();
-   double acc = 10;
-   double vel_lim = 100;
-   double velCap = 0;
-   while(true){
-       double left = 0;
-       double right = 0;
-       if(abs(curr_angle-get_angle())>theta_threshold){
-           double theta_err = get_angle()-curr_angle;
-           right += kp_theta*theta_err;
-           left -= kp_theta*theta_err;
-       }
-       double relative = get_left_pos()-curr_left;
-       if(abs(relative-dist)>dist_threshold){
-           double err = relative-dist;
-           double left_dist = err*kp;
-           velCap+=acc;
-           if(velCap>vel_lim){
-               velCap = vel_lim;
-           }
-           if(abs(left_dist) > velCap){
-               left_dist = velCap * sgn(left_dist);
-           }
-           right += left_dist;
-           left += left_dist;
-       } set_left(left);
-       set_right(right);
-       pros::delay(20);
-   }
+    double kp = 10;
+    double kd = 10;
+    double kp_theta = 10;
+    double curr_angle = get_angle();
+    double theta_threshold = 0;
+    double dist_threshold = 0;
+    double curr_left = get_left_pos();
+    double acc = 10;
+    double vel_lim = 100;
+    double velCap = 0;
+    while(abs(get_left_pos()-curr_left-dist)>dist_threshold){
+        double left = 0;
+        double right = 0;
+        if(abs(curr_angle-get_angle())>theta_threshold){
+            double theta_err = get_angle()-curr_angle;
+            right += kp_theta*theta_err;
+            left -= kp_theta*theta_err;
+        }
+        double relative = get_left_pos()-curr_left;
+        if(abs(relative-dist)>dist_threshold){
+            double err = relative-dist;
+            double left_dist = err*kp;
+            velCap+=acc;
+            if(velCap>vel_lim){
+                velCap = vel_lim;
+            }
+            if(abs(left_dist) > velCap){
+                left_dist = velCap * sgn(left_dist);
+            }
+            right += left_dist;
+            left += left_dist;
+        } set_left(left);
+        set_right(right);
+        pros::delay(20);
+    }
 }
   
 void turn(double angle){
-   const double kp = .1; //kp value
-   const double alpha = 10; //max accel
-   const double omega_lim = 100; //max vel
-   double theta_threshold = 0; //tolerance
+    const double kp = .1; //kp value
+    const double alpha = 10; //max accel
+    const double omega_lim = 100; //max vel
+    double theta_threshold = 0; //tolerance
     
-   double omegaCap = 0;
+    double omegaCap = 0;
 
-   while(true)
-   {
-       double curr_angle = get_angle(); //grabs current angle
-       double theta_err = angle-get_angle(); //calculates error
-       if(abs(theta_err) > theta_threshold) //checks to see if we still need to be turning
-       {
-           double right = theta_err * kp; //sets motor power
-           omegaCap += alpha; //increments angular velocity with accel value
-           if(omegaCap > omega_lim)
-               omegaCap = omega_lim; //checks for values greater than max vel
-           if(abs(right) > omegaCap){
-               right = omegaCap * sgn(right); //checks 
-           }
-       }
-       printf("%f", right);
+    while(abs(angle-get_angle()) > theta_threshold)
+    {
+        double theta_err = angle-get_angle(); //calculates error
+        double right = theta_err * kp; //sets motor power
+        omegaCap += alpha; //increments angular velocity with accel value
+        if(omegaCap > omega_lim)
+            omegaCap = omega_lim; //checks for values greater than max vel
+        if(abs(right) > omegaCap){
+            right = omegaCap * sgn(right); //checks 
+        }
+        printf("%f", right);
 
-       set_left(-right);
-       set_right(right);
+        set_left(-right);
+        set_right(right);
 
-       pros::delay(20);
-   }
+        pros::delay(20);
+    }
 }
 
 void drive_control(void *)
