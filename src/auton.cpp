@@ -79,27 +79,30 @@ void target_theta(double theta){
 }
  
 void turn(void*){
-   double kp = .1;
-   double kd = .1;
-   double curr_angle = get_angle();
-   double theta_threshold = 0;
-   double alpha = 10;
-   double omega_lim = 100;
-   while(true){
-       if(abs(get_angle() - curr_angle) > theta_threshold){
-           double theta_err = get_angle() - curr_angle;
-           double right = theta_err * kp;
+   const double kp = .1; //kp value
+   const double alpha = 10; //max accel
+   const double omega_lim = 100; //max vel
+   double curr_angle = get_angle(); //grabs current angle
+   double theta_threshold = 0; //tolerance
+   
+   while(true)
+   {
+       double theta_err = get_angle() - curr_angle; //calculates error
+       if(abs(theta_err) > theta_threshold) //checks to see if we still need to be turning
+       {
+           double right = theta_err * kp; //sets motor power
            omegaCap += alpha; //increments angular velocity with accel value
-           if(omegaCap > omega_lim){
-               omegaCap = omega_lim; //checks for values greater than the speed limit
-           }
+           if(omegaCap > omega_lim)
+               omegaCap = omega_lim; //checks for values greater than max vel
            if(abs(right) > omegaCap){
-               right = omegaCap * sgn(right);
+               right = omegaCap * sgn(right); //checks 
            }
        }
        printf("%f", right);
+
        set_left(-right);
        set_right(right);
+
        pros::delay(20);
    }
 }
