@@ -67,12 +67,12 @@ double get_right_pos()
 
 void reset_drive_encoder()
 {
-    LB.set_zero_position(0);
-    RB.set_zero_position(0);
-    RB2.set_zero_position(0);
-    LB2.set_zero_position(0);
-    RF.set_zero_position(0);
-    LF.set_zero_position(0);
+    LB.tare_position();
+    RB.tare_position();
+    RB2.tare_position();
+    LB2.tare_position();
+    RF.tare_position();
+    LF.tare_position();
 }
 
 //imu

@@ -1,7 +1,10 @@
 #ifndef AUTON_HPP
 #define AUTON_HPP
 
-void forward(double dist);
-void turn(double theta);
+void drive_control(void *);
+void test();
+void skill();
+void auton_1();
+void auton_2();
 
 #endif
