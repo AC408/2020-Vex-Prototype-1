@@ -1,36 +1,47 @@
 #include "main.h"
 
-int score_state = 0;
+int intake_state = 0;
+bool cata_bool = false;
 
-void score_control(void *)
+void intake_control(void *)
 {
     intake_coast();
-    index_coast();
     while(true){
-        switch(score_state){
-            case 1: //full score
-                set_index(127);
+        switch(intake_state){
+            case 1: //intake
                 set_intake(127);
                 break;
-            case 2: //score
-                set_index(127);
-                set_intake(0);
-                break;
-            case 3: //hold balls
-                set_index(-127);
-                set_intake(127);
-                break;
-            case 4: //de-intake
-                set_index(0);
+            case 2: //outtake
                 set_intake(-127);
                 break;
-            case 0: 
+            case 0: //stop
                 set_intake(0);
-                set_index(0);
                 break;
-            case 5: //auton functions
+            case 3: //auton functions
                 break;
         } pros::delay(20);
+    }
+}
+
+void cata_control(void *)
+{
+    cata_hold();
+    bool cocked = false;
+    while(true){
+        if(!cocked){ //auto cock the cata
+            while(!cata_pressed()){
+                set_cata(127);
+                pros::delay(20);
+            } cocked = true;
+        } 
+        if(cata_bool){ //shoot
+            set_cata(127);
+            cocked = false;
+            cata_bool = false;
+        } else{
+            set_cata(25); //tune constant
+        }    
+        pros::delay(20);
     }
 }
 
@@ -40,7 +51,7 @@ void sensors(void*){
         pros::lcd::set_text(2, "l_encoder"+std::to_string(get_left_pos()));
         pros::lcd::set_text(3, "r_encoder"+std::to_string(get_right_pos()));
         pros::lcd::set_text(4, "intake"+std::to_string(get_intake_pos()));
-        pros::lcd::set_text(5, "indexer"+std::to_string(get_index_pos()));
+        pros::lcd::set_text(5, "cata"+std::to_string(get_cata_pos()));
         pros::delay(100);
     }
 }

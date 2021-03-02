@@ -8,8 +8,9 @@ pros::Motor LB(7, MOTOR_GEARSET_6, true),
         LB2(9, MOTOR_GEARSET_6),
         RB2(8, MOTOR_GEARSET_6, true),
         Intake(3, MOTOR_GEARSET_18, true),
-        Index(2, MOTOR_GEARSET_6, true);
+        Cata(2, MOTOR_GEARSET_6, true);
 
+pros::ADIDigitalIn cata_limit('A');
 pros::Imu imu(6);
 
 //Math
@@ -109,25 +110,25 @@ void reset_intake(){
     Intake.set_zero_position(0);
 }
 
-//index
-void set_index(double target){
-    Index.move(target);
+//cata
+void set_cata(double target){
+    Cata.move(target);
 }
 
-double get_index_pos(){
-    return Index.get_position();
+double get_cata_pos(){
+    return Cata.get_position();
 }
 
-void reset_index(){
-    Index.set_zero_position(0);
+void reset_cata(){
+    Cata.set_zero_position(0);
 }
 
-void index_coast(){
-    Index.set_brake_mode(MOTOR_BRAKE_COAST);
+void cata_coast(){
+    Cata.set_brake_mode(MOTOR_BRAKE_COAST);
 }
 
-void index_hold(){
-    Index.set_brake_mode(MOTOR_BRAKE_HOLD);
+void cata_hold(){
+    Cata.set_brake_mode(MOTOR_BRAKE_HOLD);
 }
 
 //all
@@ -135,6 +136,11 @@ void reset_all_encoders()
 {
     reset_drive_encoder();
 	reset_intake();
-    reset_index();
+    reset_cata();
 }
 
+bool cata_pressed(){
+    if(cata_limit.get_value()==1){
+        return true;
+    } return false;
+}

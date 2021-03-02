@@ -50,6 +50,9 @@ void set_dist(double dist, double speed = 100, double accel = 5, double tol = 10
 //pid thread
 void drive_control(void *)
 {
+
+    drive_hold();
+
     double errorTheta = 0;
     double errorLeft = 0;
     double errorRight = 0;

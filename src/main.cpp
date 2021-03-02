@@ -9,7 +9,8 @@ void initialize()
 	reset_all_encoders();
 	calibrate();
 	pros::delay(200);
-	pros::Task score_control_t(score_control, nullptr, "name");
+	pros::Task intake_control_t(intake_control, nullptr, "name");
+	pros::Task cata_control_t(cata_control, nullptr, "name");
 	pros::Task sensor_t(sensors, nullptr, "name");
 
 }
@@ -34,20 +35,24 @@ void opcontrol()
 		set_left(master.get_analog(ANALOG_LEFT_Y));
         set_right(master.get_analog(ANALOG_RIGHT_Y));
 
-		//rest
+		//intake
 	    intake_coast();
-	    index_coast();
 		if(master.get_digital(DIGITAL_L1)){
-			score_state = 1; //full score
+			intake_state = 1; //intake
 		} else if(master.get_digital(DIGITAL_L2)){
-			score_state = 2; //score, no intake
-		} else if(master.get_digital(DIGITAL_R1)){
-			score_state = 3; //no score, intake
-		} else if(master.get_digital(DIGITAL_R2)){
-			score_state = 4; //de-intake
+			intake_state = 2; //outtake
 		} else{
-			score_state = 0; //stop
+			intake_state = 0; //stop
 		}
+
+		//cata
+	    cata_hold();
+		if(master.get_digital(DIGITAL_R1)){
+			cata_bool = true; //shoot
+		} else{
+			cata_bool = false; //stop
+		}
+
 		pros::delay(20);
 	}
 }
