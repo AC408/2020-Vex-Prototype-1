@@ -36,6 +36,7 @@ void cata_control(void *)
         } 
         if(cata_bool){ //shoot
             set_cata(127);
+            pros::delay(30);
             cocked = false;
             cata_bool = false;
         } else{
