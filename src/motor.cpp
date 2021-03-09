@@ -81,6 +81,10 @@ void calibrate(){
     imu.reset();
 }
 
+void reset_imu(){
+    imu.tare();
+}
+
 double get_angle(){
     return imu.get_heading();
 }
