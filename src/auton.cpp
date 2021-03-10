@@ -67,7 +67,7 @@ void drive_control(void *)
 
     while(true){
         switch(state){
-            case 1: //angle
+            case 1: //relative angle, not global/absolute
                 {
                     errorTheta = targetTheta - get_angle();
 
@@ -90,7 +90,7 @@ void drive_control(void *)
                         state = 0;
                         set_left(0);
                         set_right(0);
-                        calibrate();
+                        reset_imu();
                         break;
                     }
 
@@ -128,7 +128,7 @@ void drive_control(void *)
                         state = 0;
                         set_left(0);
                         set_right(0);
-                        calibrate();
+                        reset_imu();
                         break;
                     }
 
