@@ -37,9 +37,9 @@ void opcontrol()
 
 		//intake
 	    intake_coast();
-		if(master.get_digital(DIGITAL_L1)){
+		if(master.get_digital(DIGITAL_R1)){
 			intake_state = 1; //intake
-		} else if(master.get_digital(DIGITAL_L2)){
+		} else if(master.get_digital(DIGITAL_R2)){
 			intake_state = 2; //outtake
 		} else{
 			intake_state = 0; //stop
@@ -47,10 +47,12 @@ void opcontrol()
 
 		//cata
 	    cata_hold();
-		if(master.get_digital(DIGITAL_R1)){
-			cata_bool = true; //shoot
+		if(master.get_digital(DIGITAL_L1)){
+			cata_state = 1;
+			//cata_bool = true; //shoot
 		} else{
-			cata_bool = false; //stop
+			cata_state = 2;
+			//cata_bool = false; //stop
 		}
 
 		pros::delay(20);

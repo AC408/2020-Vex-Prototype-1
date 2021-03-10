@@ -1,6 +1,7 @@
 #include "main.h"
 
 int intake_state = 0;
+int cata_state = 2;
 bool cata_bool = false;
 
 void intake_control(void *)
@@ -25,9 +26,10 @@ void intake_control(void *)
 
 void cata_control(void *)
 {
-    cata_hold();
-    bool cocked = false;
+    cata_coast();
+    //bool cocked = false;
     while(true){
+        /*
         if(!cocked){ //auto cock the cata
             while(!cata_pressed()){
                 set_cata(127);
@@ -42,6 +44,15 @@ void cata_control(void *)
         } else{
             set_cata(25); //tune constant
         }    
+        */
+        switch(cata_state){
+            case 1: //move
+                set_cata(127);
+                break;
+            case 2: //hold
+                set_cata(20);
+                break;
+        }
         pros::delay(20);
     }
 }

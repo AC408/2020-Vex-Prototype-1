@@ -1,17 +1,17 @@
 #include "main.h"
 
 //Motors
-pros::Motor LB(7, MOTOR_GEARSET_6, true),
-        LF(1, MOTOR_GEARSET_6, true),
-        RF(5, MOTOR_GEARSET_6),
-        RB(4, MOTOR_GEARSET_6),
-        LB2(9, MOTOR_GEARSET_6),
-        RB2(8, MOTOR_GEARSET_6, true),
-        Intake(3, MOTOR_GEARSET_18, true),
-        Cata(2, MOTOR_GEARSET_6, true);
+pros::Motor LB(9, MOTOR_GEARSET_6, true),
+        LF(7, MOTOR_GEARSET_6, true),
+        RF(6, MOTOR_GEARSET_6),
+        RB(3, MOTOR_GEARSET_6),
+        LB2(19, MOTOR_GEARSET_6, true),
+        RB2(2, MOTOR_GEARSET_6),
+        Intake(4, MOTOR_GEARSET_18, true),
+        Cata(8, MOTOR_GEARSET_6);
 
 pros::ADIDigitalIn cata_limit('A');
-pros::Imu imu(6);
+pros::Imu imu(1);
 
 //Math
 int sgn(int input)
