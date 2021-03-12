@@ -146,13 +146,16 @@ void drive_control(void *)
 }
 
 //score macro
-void score(int ball){
-    // convey_time(100,400);
-    // intake_time(100,100*ball);
-    // forward_time(-50,100);
-    // turn_time(8,100);
-    // intake_time(-127,100*ball+100);
-
+void score(){
+    set_cata(127);
+    pros::delay(200);
+    while (!cata_pressed())
+    {
+        pros::delay(10);
+    }
+    set_cata(-50);
+    pros::delay(100);
+    set_cata(20);
 }
 
 //----------------------------------------------------------------
@@ -298,5 +301,52 @@ void auton_1(){
 
 //elim
 void auton_2(){
+    preauton();
 
+    set_intake(100);
+    set_dist(18);
+    while(!isSettled){
+        pros::delay(10);
+    }
+    set_angle(45);
+    while (!isSettled){
+        pros::delay(10);
+    }
+    set_dist(25.5);
+    while(!isSettled){
+        pros::delay(10);
+    } 
+    //descored corner goal
+
+    set_intake(0);
+    pros::delay(10);
+    score(); //scored one ball
+    
+    set_dist(-25.5);
+    while(!isSettled){
+        pros::delay(10);
+    }
+    set_intake(-100);
+    pros::delay(500); //tune so it only descore opponent ball
+
+    set_angle(-90);
+    while(!isSettled){
+        pros::delay(10);
+    }
+    set_intake(100); 
+    set_dist(25.5);
+    while(!isSettled){
+        pros::delay(10);
+    }
+    //descore center right goal
+
+    set_intake(0);
+    pros::delay(10);
+    score(); //scored one ball
+
+    //might need to intake to descore last opponent's ball
+    set_dist(-10); //get away from goal
+    while(!isSettled){
+        pros::delay(10);
+    }
 }
