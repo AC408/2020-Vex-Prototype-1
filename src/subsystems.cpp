@@ -1,8 +1,8 @@
 #include "main.h"
 
 int intake_state = 0;
-int cata_state = 2;
-bool cata_bool = false;
+int cata_state = 0;
+pros::Controller master(CONTROLLER_MASTER);
 
 void intake_control(void *)
 {
@@ -27,33 +27,20 @@ void intake_control(void *)
 void cata_control(void *)
 {
     cata_coast();
-    //bool cocked = false;
-    while(true){
-        /*
-        if(!cocked){ //auto cock the cata
-            while(!cata_pressed()){
-                set_cata(127);
-                pros::delay(20);
-            } cocked = true;
-        } 
-        if(cata_bool){ //shoot
-            set_cata(127);
-            pros::delay(30);
-            cocked = false;
-            cata_bool = false;
-        } else{
-            set_cata(25); //tune constant
-        }    
-        */
-        switch(cata_state){
-            case 1: //move
-                set_cata(127);
-                break;
-            case 2: //hold
-                set_cata(20);
-                break;
-        }
-        pros::delay(20);
+    while(true)
+    {
+        if(master.get_digital(DIGITAL_L1)){
+			set_cata(127);
+			pros::delay(200);
+			while (!cata_pressed())
+			{
+				pros::delay(10);
+			}
+			set_cata(-50);
+			pros::delay(100);
+			set_cata(20);
+		}
+        pros::delay(10);
     }
 }
 

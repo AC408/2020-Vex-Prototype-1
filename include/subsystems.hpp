@@ -7,6 +7,6 @@ void cata_control(void *);
 
 extern int intake_state;
 extern int cata_state;
-extern bool cata_bool;
+extern pros::Controller master;
 
 #endif

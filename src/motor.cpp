@@ -10,7 +10,7 @@ pros::Motor LB(9, MOTOR_GEARSET_6, true),
         Intake(4, MOTOR_GEARSET_18, true),
         Cata(8, MOTOR_GEARSET_6);
 
-pros::ADIDigitalIn cata_limit('A');
+pros::ADIDigitalIn cata_limit('H');
 pros::Imu imu(1);
 
 //Math
