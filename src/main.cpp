@@ -27,6 +27,8 @@ void opcontrol()
 {
 	drive_control_t.remove();
 
+	pros::Controller master(CONTROLLER_MASTER);
+
 	while(true){
 		//drive
 		drive_coast();
@@ -41,6 +43,10 @@ void opcontrol()
 			intake_state = 2; //outtake
 		} else{
 			intake_state = 0; //stop
+		}
+
+		if(master.get_digital(DIGITAL_L1)){
+			cata_state = 1;
 		}
 
 		pros::delay(20);
