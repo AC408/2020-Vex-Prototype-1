@@ -48,7 +48,8 @@ void cata_control(void *)
                 set_cata(20);
                 pros::delay(1000); //tunable
                 auto_cock();
-                cata_state = 3;
+                set_cata(10);
+                cata_state = 0;
                 break;
             case 0:
                 break;        
