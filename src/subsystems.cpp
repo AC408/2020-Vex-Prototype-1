@@ -2,6 +2,7 @@
 
 int intake_state = 0;
 int cata_state = 0;
+pros::Controller master(CONTROLLER_MASTER);
 
 void intake_control(void *)
 {
@@ -23,36 +24,22 @@ void intake_control(void *)
     }
 }
 
-void auto_cock(){
-    set_cata(127);
-    while (!cata_pressed())
-    {
-        pros::delay(10);
-    }
-    set_cata(-50);
-    pros::delay(100);
-}
-
 void cata_control(void *)
 {
     cata_coast();
     while(true)
     {
-        switch(cata_state){
-            case 1: //driver control
-                auto_cock();
-                set_cata(20);
-                cata_state = 0;
-                break;
-            case 2: //auton
-                set_cata(20);
-                pros::delay(1000); //tunable
-                auto_cock();
-                cata_state = 3;
-                break;
-            case 0:
-                break;        
-        } 
+        if(master.get_digital(DIGITAL_L1)){
+			set_cata(127);
+			pros::delay(200);
+			while (!cata_pressed())
+			{
+				pros::delay(10);
+			}
+			set_cata(-50);
+			pros::delay(100);
+			set_cata(20);
+		}
         pros::delay(10);
     }
 }
