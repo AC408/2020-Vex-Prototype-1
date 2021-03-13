@@ -4,6 +4,39 @@ int intake_state = 0;
 int cata_state = 0;
 pros::Controller master(CONTROLLER_MASTER);
 
+int left = 0;
+int right = 0;
+float CURVE_SCALE = 2.2;
+
+float curve_function(int x)
+{
+    if (CURVE_SCALE != 0)
+        return (powf(2.718, -(CURVE_SCALE/10)) + powf(2.718, (abs(x)-127)/10) * (1-powf(2.718, -(CURVE_SCALE/10))))*x;
+    return x;
+}
+
+void drive_control(void *)
+{
+    drive_coast();
+    while(true)
+    {
+        //non curved
+        //left = master.get_analog(ANALOG_LEFT_Y);
+        //right = master.get_analog(ANALOG_RIGHT_Y);
+
+        //curved
+        left = curve_function(master.get_analog(ANALOG_LEFT_Y));
+        right = curve_function(master.get_analog(ANALOG_RIGHT_Y));
+
+        //normal
+        set_tank(left, right);
+
+        //backwards
+        //set_tank(-right, -left);
+    }
+    pros::delay(20);
+}
+
 void intake_control(void *)
 {
     intake_coast();
@@ -20,7 +53,8 @@ void intake_control(void *)
                 break;
             case 3: //auton functions
                 break;
-        } pros::delay(20);
+        }
+        pros::delay(20);
     }
 }
 
@@ -31,14 +65,12 @@ void cata_control(void *)
     {
         if(master.get_digital(DIGITAL_L1)){
 			set_cata(127);
-			pros::delay(200);
+			pros::delay(600);
 			while (!cata_pressed())
 			{
 				pros::delay(10);
 			}
-			set_cata(-50);
-			pros::delay(100);
-			set_cata(20);
+			set_cata(10);
 		}
         pros::delay(10);
     }

@@ -6,8 +6,7 @@ using namespace okapi;
 
 int sgn(int input);
 
-void set_left(double input);
-void set_right(double input);
+void set_tank(double l, double r);
 void drive_hold();
 void drive_coast();
 void reset_drive_encoder();
