@@ -4,6 +4,7 @@
 void intake_control(void *);
 void sensors(void *);
 void cata_control(void *);
+void drive_control(void *);
 
 extern int intake_state;
 extern int cata_state;

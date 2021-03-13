@@ -48,6 +48,7 @@ void set_dist(double dist, double speed = 100, double accel = 5, double tol = 10
 }
   
 //pid thread
+/*
 void drive_control(void *)
 {
 
@@ -144,6 +145,7 @@ void drive_control(void *)
         pros::delay(20);
     }
 }
+*/
 
 //score macro
 void score(){
@@ -349,4 +351,41 @@ void auton_2(){
     while(!isSettled){
         pros::delay(10);
     }
+}
+
+void for_avi(){
+    drive_hold();
+    set_cata(127);
+    pros::delay(400);
+    while(!cata_pressed){
+        pros::delay(20);
+    }
+    set_cata(10);
+    set_tank(50,50);
+    pros::delay(500);
+    set_tank(0,0);
+    pros::delay(200);
+    reset_imu();
+    set_tank(-50,50);
+    pros::delay(690);
+    set_tank(0,0);
+    pros::delay(200);
+
+    //changes
+    set_tank(25,25);
+    pros::delay(200);
+
+    set_cata(127);
+    pros::delay(400);
+    while(!cata_pressed){
+        pros::delay(20);
+    }
+    set_cata(10);
+    set_tank(-127,-127); 
+    pros::delay(500);
+    set_tank(0,0);
+    pros::delay(500);
+    set_tank(50,-50);
+    pros::delay(690);
+    set_tank(0,0);
 }

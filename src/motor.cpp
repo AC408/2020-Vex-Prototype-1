@@ -24,16 +24,25 @@ int sgn(int input)
 }
 
 //chassis
-void set_left(double input){
-    LB.move(input);
-    LB2.move(input);
-    LF.move(input);
-}
+// void set_left(double input){
+//     LB.move(input);
+//     LB2.move(input);
+//     LF.move(input);
+// }
 
-void set_right(double input){
-    RB.move(input);
-    RB2.move(input);
-    RF.move(input);
+// void set_right(double input){
+//     RB.move(input);
+//     RB2.move(input);
+//     RF.move(input);
+// }
+
+void set_tank(double l, double r){
+    LB.move(l);
+    LF.move(l);
+    LB2.move(l);
+    RF.move(r);
+    RB.move(r);
+    RB2.move(r);
 }
 
 void drive_hold()

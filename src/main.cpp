@@ -1,6 +1,6 @@
 #include "main.h"
 
-pros::Task drive_control_t(drive_control, nullptr, "name");
+//pros::Task drive_control_t(drive_control, nullptr, "name");
 
 void initialize()
 {
@@ -9,8 +9,8 @@ void initialize()
 	reset_all_encoders();
 	calibrate();
 	pros::delay(200);
-	pros::Task intake_control_t(intake_control, nullptr, "name");
-	pros::Task cata_control_t(cata_control, nullptr, "name");
+	// pros::Task intake_control_t(intake_control, nullptr, "name");
+	// pros::Task cata_control_t(cata_control, nullptr, "name");
 	pros::Task sensor_t(sensors, nullptr, "name");
 
 }
@@ -20,18 +20,23 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	test();
+//	test();
+	for_avi();
 }
 
 void opcontrol()
 {
-	drive_control_t.remove();
+//	drive_control_t.remove();
+
+	pros::Task drive_control_t(drive_control, nullptr, "name");
+	pros::Task intake_control_t(intake_control, nullptr, "name");
+	pros::Task cata_control_t(cata_control, nullptr, "name");
 
 	while(true){
 		//drive
-		drive_coast();
-		set_left(master.get_analog(ANALOG_LEFT_Y));
-        set_right(master.get_analog(ANALOG_RIGHT_Y));
+		// drive_coast();
+		// set_left(master.get_analog(ANALOG_LEFT_Y));
+        // set_right(master.get_analog(ANALOG_RIGHT_Y));
 
 		//intake
 	    intake_coast();
