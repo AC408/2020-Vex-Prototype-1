@@ -149,24 +149,12 @@ void drive_control(void *)
 
 //score macro
 void score(){
-    set_cata(127);
-    pros::delay(200);
-    while (!cata_pressed())
-    {
-        pros::delay(10);
-    }
-    set_cata(-50);
-    pros::delay(100);
-    set_cata(20);
 }
 
 //----------------------------------------------------------------
 
 //deploy
-void preauton()
-{
-    // drive_hold();
-    // intake_time(100,100);
+void preauton(){
 }
 
 //test
@@ -179,213 +167,17 @@ void test(){
 
 //skill
 void skill(){
-    // preauton(); //first goal
-
-    // set_intake(127); //second goal
-    // forward_time(70,700);
-    // convey_time(100,100);
-    // turn_time(80,270);
-    // forward_time(50,700);
-    // convey_time(100,100);
-    // forward_time(-50,700);
-    // turn_time(80,270);
-    // set_intake(0);
-    // forward_time(50,750);
-    // score(2);
-    // forward_time(-100,1000);
-    // turn_time(-80,370);
-
-    // set_intake(127); //third goal
-    // forward_time(50,600);
-    // convey_time(100,100);
-    // turn_time(80,270);
-    // forward_time(50,400);
-    // convey_time(100,100);
-    // set_intake(0);
-    // forward_time(50,200);
-    // score(1);
-    // turn_time(-80,645);
-
-    // set_intake(127); //fourth goal
-    // forward_time(70,1200);
-    // convey_time(100,100);
-    // turn_time(80,545);
-    // forward_time(70,700);
-    // convey_time(100,100);
-    // forward_time(-70,700);
-    // turn_time(-80,270);
-    // set_intake(0);
-    // forward_time(50,750);
-    // score(2);
-    // turn_time(-80,880);
-
-    // set_intake(127); //fifth goal
-    // forward_time(70,1200);
-    // convey_time(100,100);
-    // turn_time(80,780);
-    // set_intake(0);
-    // forward_time(50,700);
-    // score(1);
-    // turn_time(-80,645);
- 
-    // set_intake(127); //sixth goal
-    // forward_time(70,700);
-    // convey_time(100,100);
-    // turn_time(-80,270);
-    // forward_time(70,700);
-    // convey_time(100,100);
-    // forward_time(-70,500);
-    // turn_time(80,270);
-    // set_intake(0);
-    // forward_time(50,700);
-    // score(2);
-    // forward_time(-100,1000);
-    // turn_time(-80,370);
-
-    // set_intake(127); //seventh goal
-    // forward_time(70,600);
-    // convey_time(100,100);
-    // turn_time(80,270);
-    // forward_time(70,400);
-    // convey_time(100,100);
-    // set_intake(0);
-    // forward_time(50,200);
-    // score(1);
-    // turn_time(-80,645);
-
-    // set_intake(127); //eighth goal
-    // forward_time(70,1200);
-    // convey_time(100,100);
-    // turn_time(80,545);
-    // forward_time(70,700);
-    // convey_time(100,100);
-    // forward_time(-70,700);
-    // turn_time(-80,270);
-    // set_intake(0);
-    // forward_time(50,750);
-    // score(2);
-    // turn_time(-80,880);
-
-    // set_intake(127); //ninth goal
-    // forward_time(70,900);
-    // convey_time(100,100);
-    // turn_time(80,780);
-    // set_intake(0);
-
-    // //descore mid
-    // double sign = 0;
-    // for(int i = 0; i<5; i++){
-    //     if(i%2==0){
-    //         sign = -1;
-    //     } else {
-    //         sign = 1;
-    //     }
-    //     forward_time(50*sign,400);
-    // }
-    
-    // //descore first goal
-    // forward_time(50,700);
-    // intake_time(100,100);
-
-    // //score mid
-    // forward_time(-70,300);
-    // intake_time(-127,100);
-    // turn_time(80,1050);
-    // forward_time(50,1200);
-    // convey_time(100,400);
 
 }
 
-//quals
-void auton_1(){
+void auton_quals(){
 
 }
 
-//elim
-void auton_2(){
-    preauton();
+void auton_left(){
 
-    set_intake(100);
-    set_dist(18);
-    while(!isSettled){
-        pros::delay(10);
-    }
-    set_angle(45);
-    while (!isSettled){
-        pros::delay(10);
-    }
-    set_dist(25.5);
-    while(!isSettled){
-        pros::delay(10);
-    } 
-    //descored corner goal
-
-    set_intake(0);
-    pros::delay(10);
-    score(); //scored one ball
-    
-    set_dist(-25.5);
-    while(!isSettled){
-        pros::delay(10);
-    }
-    set_intake(-100);
-    pros::delay(500); //tune so it only descore opponent ball
-
-    set_angle(-90);
-    while(!isSettled){
-        pros::delay(10);
-    }
-    set_intake(100); 
-    set_dist(25.5);
-    while(!isSettled){
-        pros::delay(10);
-    }
-    //descore center right goal
-
-    set_intake(0);
-    pros::delay(10);
-    score(); //scored one ball
-
-    //might need to intake to descore last opponent's ball
-    set_dist(-10); //get away from goal
-    while(!isSettled){
-        pros::delay(10);
-    }
 }
 
-void for_avi(){
-    drive_hold();
-    set_cata(127);
-    pros::delay(400);
-    while(!cata_pressed){
-        pros::delay(20);
-    }
-    set_cata(10);
-    set_tank(50,50);
-    pros::delay(500);
-    set_tank(0,0);
-    pros::delay(200);
-    reset_imu();
-    set_tank(-50,50);
-    pros::delay(690);
-    set_tank(0,0);
-    pros::delay(200);
+void auton_right(){
 
-    //changes
-    set_tank(25,25);
-    pros::delay(200);
-
-    set_cata(127);
-    pros::delay(400);
-    while(!cata_pressed){
-        pros::delay(20);
-    }
-    set_cata(10);
-    set_tank(-127,-127); 
-    pros::delay(500);
-    set_tank(0,0);
-    pros::delay(500);
-    set_tank(50,-50);
-    pros::delay(690);
-    set_tank(0,0);
 }
