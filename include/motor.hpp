@@ -23,14 +23,6 @@ void intake_coast();
 double get_intake_pos();
 void reset_intake();
 
-double get_cata_pos();
-void set_cata(double target);
-void reset_cata();
-void cata_coast();
-void cata_hold();
-
 void reset_all_encoders();
-
-bool cata_pressed();
 
 #endif

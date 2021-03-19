@@ -27,11 +27,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/motor.cpp.o",
-            "src/motor.cpp"
+            "bin/subsystems.cpp.o",
+            "src/subsystems.cpp"
         ],
         "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
-        "file": "src/motor.cpp"
+        "file": "src/subsystems.cpp"
     },
     {
         "arguments": [
@@ -61,11 +61,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/subsystems.cpp.o",
-            "src/subsystems.cpp"
+            "bin/motor.cpp.o",
+            "src/motor.cpp"
         ],
         "directory": "/Users/allenchen/GitHub/2020-Vex-Prototype-1",
-        "file": "src/subsystems.cpp"
+        "file": "src/motor.cpp"
     },
     {
         "arguments": [

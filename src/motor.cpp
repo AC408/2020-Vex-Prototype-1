@@ -1,6 +1,7 @@
 #include "main.h"
 
 //Motors
+//Ded ports - 1, 5, 10
 pros::Motor LB(9, MOTOR_GEARSET_6, true),
         LF(7, MOTOR_GEARSET_6, true),
         RF(6, MOTOR_GEARSET_6),
@@ -8,9 +9,8 @@ pros::Motor LB(9, MOTOR_GEARSET_6, true),
         LB2(19, MOTOR_GEARSET_6, true),
         RB2(2, MOTOR_GEARSET_6),
         Intake(4, MOTOR_GEARSET_18, true),
-        Cata(8, MOTOR_GEARSET_6);
+        Intake2(8, MOTOR_GEARSET_6);
 
-pros::ADIDigitalIn cata_limit('H');
 pros::Imu imu(1);
 
 //Math
@@ -23,14 +23,13 @@ int sgn(int input)
     return 0;
 }
 
-//chassis
 void set_tank(double l, double r){
     LB.move(l);
-    LB2.move(l);
     LF.move(l);
+    LB2.move(l);
+    RF.move(r);
     RB.move(r);
     RB2.move(r);
-    RF.move(r);
 }
 
 void drive_hold()
@@ -90,46 +89,29 @@ double get_angle(){
 void set_intake(int input)
 {
     Intake.move(input);
+    Intake2.move(input);
 }
 
 void intake_hold()
 {
     Intake.set_brake_mode(MOTOR_BRAKE_HOLD);
+    Intake2.set_brake_mode(MOTOR_BRAKE_HOLD);
 }
 
 void intake_coast()
 {
     Intake.set_brake_mode(MOTOR_BRAKE_COAST);
+    Intake2.set_brake_mode(MOTOR_BRAKE_COAST);
 }
 
 double get_intake_pos()
 {
-    return Intake.get_position();
+    return (Intake.get_position()+Intake2.get_position())/2;
 }
 
 void reset_intake(){
     Intake.set_zero_position(0);
-}
-
-//cata
-void set_cata(double target){
-    Cata.move(target);
-}
-
-double get_cata_pos(){
-    return Cata.get_position();
-}
-
-void reset_cata(){
-    Cata.set_zero_position(0);
-}
-
-void cata_coast(){
-    Cata.set_brake_mode(MOTOR_BRAKE_COAST);
-}
-
-void cata_hold(){
-    Cata.set_brake_mode(MOTOR_BRAKE_HOLD);
+    Intake2.set_zero_position(0);
 }
 
 //all
@@ -137,11 +119,4 @@ void reset_all_encoders()
 {
     reset_drive_encoder();
 	reset_intake();
-    reset_cata();
-}
-
-bool cata_pressed(){
-    if(cata_limit.get_value()==1){
-        return true;
-    } return false;
 }
