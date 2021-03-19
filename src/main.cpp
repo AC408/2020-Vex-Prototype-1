@@ -30,13 +30,10 @@ void opcontrol()
 	while(true)
 	{
 		//intake
-	    intake_coast();
-		if(master.get_digital(DIGITAL_R1))
-			intake_state = 1; //intake
-		else if(master.get_digital(DIGITAL_R2))
-			intake_state = 2; //outtake
-		else
-			intake_state = 0; //stop
+		if(master.get_digital(DIGITAL_R1))			intake_state = IN;
+		else if(master.get_digital(DIGITAL_R2))		intake_state = OUT;
+		else										intake_state = STOP;
+		
 		pros::delay(20);
 	}
 }

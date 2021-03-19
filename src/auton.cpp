@@ -51,7 +51,7 @@ void set_dist(double dist, double speed = 100, double accel = 5, double tol = 10
 void chassis_control(void *)
 {
 
-    drive_hold();
+    set_drive_brake(MOTOR_BRAKE_HOLD);
 
     double errorTheta = 0;
     double errorLeft = 0;

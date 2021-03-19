@@ -7,8 +7,7 @@ using namespace okapi;
 int sgn(int input);
 
 void set_tank(double l, double r);
-void drive_hold();
-void drive_coast();
+void set_drive_brake(pros::motor_brake_mode_e brake);
 void reset_drive_encoder();
 double get_left_pos();
 double get_right_pos();
@@ -18,8 +17,7 @@ double get_angle();
 void reset_imu();
 
 void set_intake(int input);
-void intake_hold();
-void intake_coast();
+void set_intake_brake(pros::motor_brake_mode_e brake);
 double get_intake_pos();
 void reset_intake();
 
