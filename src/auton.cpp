@@ -145,10 +145,6 @@ void score(){
 
 //----------------------------------------------------------------
 
-//deploy
-void preauton(){
-}
-
 //test
 void test(){
 	set_angle(100);
@@ -163,33 +159,13 @@ void skill(){
 }
 
 void auton_quals(){
-    preauton(); //scores in corner
     set_dist(24);
     while(!isSettled){
         pros::delay(20);
-    } 
-    // //for descoring corner
-    // set_angle(-135);
-    // while(!isSettled){
-    //     pros::delay(20);
-    // } set_dist(24);
-    // while(!isSettled){
-    //     pros::delay(20);
-    // } pros::delay(200); //wait for corner goal to descore
-    // set_dist(-24);
-    // while(!isSettled){
-    //     pros::delay(20);
-    // } set_angle(-135);
-    // while(!isSettled){
-    //     pros::delay(20);
-    // } 
-    // for not descoring corner
-    set_angle(90);
+    } set_angle(90);
     while(!isSettled){
         pros::delay(20);
-    }
-
-    set_dist(48);
+    } set_dist(48);
     while(!isSettled){
         pros::delay(20);
     } set_angle(90); //turn towards center goal
@@ -252,7 +228,7 @@ void auton_left(){
         pros::delay(20);
     } set_angle(90); //turn towards center goal
     while(!isSettled){
-        pros::delay(20);
+        pros::delay(20); 
     } set_dist(24); //drive to center goal
     while(!isSettled){
         pros::delay(20);
@@ -268,3 +244,9 @@ void auton_left(){
 void auton_right(){
 
 }
+
+//no poking for descore
+//back and forth motion for descore
+//preauton or cata to score preload 
+
+//where is starting location for cata to shoot?
