@@ -48,8 +48,7 @@ void set_dist(double dist, double speed = 100, double accel = 5, double tol = 10
 }
   
 //pid thread
-/*
-void drive_control(void *)
+void chassis_control(void *)
 {
 
     drive_hold();
@@ -89,14 +88,11 @@ void drive_control(void *)
                         isSettled = true;
                         targetTheta = signTheta = outputTheta = errorTheta = 0;
                         state = 0;
-                        set_left(0);
-                        set_right(0);
+                        set_tank(0, 0);    
                         reset_imu();
                         break;
                     }
-
-                    set_left(outputLeft);
-                    set_right(outputRight);
+                    set_tank(outputLeft, outputRight);    
                     break;
 
                 }
@@ -127,14 +123,11 @@ void drive_control(void *)
                         isSettled = true;
                         targetLeft = targetRight = signLeft = signRight = outputLeft = outputRight = errorLeft = errorRight = 0;
                         state = 0;
-                        set_left(0);
-                        set_right(0);
+                        set_tank(0,0);
                         reset_imu();
                         break;
                     }
-
-                    set_left(outputLeft);
-                    set_right(outputRight);
+                    set_tank(outputLeft, outputRight);    
                     break;
                 }
             case 0: //no movement
@@ -145,7 +138,6 @@ void drive_control(void *)
         pros::delay(20);
     }
 }
-*/
 
 //score macro
 void score(){
@@ -171,11 +163,106 @@ void skill(){
 }
 
 void auton_quals(){
+    preauton(); //scores in corner
+    set_dist(24);
+    while(!isSettled){
+        pros::delay(20);
+    } 
+    // //for descoring corner
+    // set_angle(-135);
+    // while(!isSettled){
+    //     pros::delay(20);
+    // } set_dist(24);
+    // while(!isSettled){
+    //     pros::delay(20);
+    // } pros::delay(200); //wait for corner goal to descore
+    // set_dist(-24);
+    // while(!isSettled){
+    //     pros::delay(20);
+    // } set_angle(-135);
+    // while(!isSettled){
+    //     pros::delay(20);
+    // } 
+    // for not descoring corner
+    set_angle(90);
+    while(!isSettled){
+        pros::delay(20);
+    }
 
+    set_dist(48);
+    while(!isSettled){
+        pros::delay(20);
+    } set_angle(90); //turn towards center goal
+    while(!isSettled){
+        pros::delay(20);
+    } set_dist(5);
+    while(!isSettled){
+        pros::delay(20);
+    } pros::delay(200); //wait for center goal to descore
+    set_dist(-5);
+    while(!isSettled){
+        pros::delay(20);
+    } set_angle(10);
+    while(!isSettled){
+        pros::delay(20);
+    } set_intake(-100); //descore one ball
+    pros::delay(100);
+    set_intake(0);
+    set_angle(-10);
+    while(!isSettled){
+        pros::delay(20);
+    } set_intake(-127); //descore to score one ball
+    pros::delay(100);
+    set_intake(0);
+    set_angle(-90);
+    while(!isSettled){
+        pros::delay(20);
+    } set_dist(48);
+    while(!isSettled){
+        pros::delay(20);
+    } set_angle(45);
+    while(!isSettled){
+        pros::delay(20);
+    } set_intake(127);
+    set_tank(50,50); //descore goal
+    pros::delay(500);
+    set_tank(-50,-50);
+    pros::delay(200);
+    set_tank(-50,50);
+    pros::delay(200);
+    set_intake(-127);
+    pros::delay(100);
+    set_intake(0);
+    set_tank(50,-50);
+    pros::delay(200);
+    set_tank(50,50);
+    pros::delay(200);
+    set_intake(-127);
+    pros::delay(100);
+    set_tank(-70,-70);
+    set_intake(0);
+    pros::delay(200);
+    set_tank(0,0);
 }
 
 void auton_left(){
-
+    set_intake(100);
+    set_dist(48); //drive to center
+    while(!isSettled){ //wait until settled
+        pros::delay(20);
+    } set_angle(90); //turn towards center goal
+    while(!isSettled){
+        pros::delay(20);
+    } set_dist(24); //drive to center goal
+    while(!isSettled){
+        pros::delay(20);
+    } set_intake(-100); //score
+    pros::delay(500);
+    set_intake(0);
+    set_dist(-24); //back away
+    while(!isSettled){
+        pros::delay(20);
+    }
 }
 
 void auton_right(){

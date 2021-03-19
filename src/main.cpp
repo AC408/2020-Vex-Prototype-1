@@ -1,6 +1,6 @@
 #include "main.h"
 
-//pros::Task drive_control_t(drive_control, nullptr, "name");
+pros::Task chassis_control_t(chassis_control, nullptr, "name");
 
 void initialize()
 {
@@ -22,7 +22,7 @@ void autonomous()
 
 void opcontrol()
 {
-//	drive_control_t.remove();
+	chassis_control_t.remove();
 
 	pros::Task drive_control_t(drive_control, nullptr, "name");
 	pros::Task intake_control_t(intake_control, nullptr, "name");
