@@ -137,7 +137,7 @@ void chassis_control(void *)
         }
         pros::delay(20);
     }
-}*/
+}
 
 //score macro
 void score(){

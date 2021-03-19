@@ -27,8 +27,6 @@ void opcontrol()
 	pros::Task drive_control_t(drive_control, nullptr, "name");
 	pros::Task intake_control_t(intake_control, nullptr, "name");
 
-	while(true){
-
 	while(true)
 	{
 		//intake

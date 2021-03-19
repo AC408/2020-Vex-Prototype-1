@@ -2,14 +2,14 @@
 
 //Motors
 //Ded ports - 1, 5, 10
-pros::Motor LB(9, MOTOR_GEARSET_6, true),
+pros::Motor LB(1, MOTOR_GEARSET_6, true),
         LF(7, MOTOR_GEARSET_6, true),
-        RF(6, MOTOR_GEARSET_6),
-        RB(3, MOTOR_GEARSET_6),
-        LB2(19, MOTOR_GEARSET_6, true),
-        RB2(2, MOTOR_GEARSET_6),
-        Intake(4, MOTOR_GEARSET_18, true),
-        Intake2(8, MOTOR_GEARSET_6);
+        RF(17, MOTOR_GEARSET_6),
+        RB(11, MOTOR_GEARSET_6),
+        LB2(2, MOTOR_GEARSET_6),
+        RB2(12, MOTOR_GEARSET_6, true),
+        Intake(8, MOTOR_GEARSET_6, true),
+        Intake2(18, MOTOR_GEARSET_6);
 
 pros::Imu imu(1);
 
