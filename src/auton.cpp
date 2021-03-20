@@ -245,6 +245,40 @@ void auton_right(){
 
 }
 
+void auton_timed_right(){ //right
+    set_intake(127);
+    pros::delay(1000);
+    set_tank(-50, 50);
+    pros::delay(625);
+    set_tank(0,0);
+    pros::delay(20);
+    set_tank(50,50);
+    pros::delay(2200);
+    set_tank(0,0);
+    pros::delay(500);
+    set_tank(-100,-100);
+    pros::delay(500);
+    set_tank(0,0);
+    pros::delay(20);
+}
+
+void auton_timed_left(){ //right
+    set_intake(127);
+    pros::delay(1000);
+    set_tank(50, -50);
+    pros::delay(625);
+    set_tank(0,0);
+    pros::delay(20);
+    set_tank(50,50);
+    pros::delay(2200);
+    set_tank(0,0);
+    pros::delay(500);
+    set_tank(-100,-100);
+    pros::delay(500);
+    set_tank(0,0);
+    pros::delay(20);
+}
+
 //no poking for descore
 //back and forth motion for descore
 //preauton or cata to score preload 

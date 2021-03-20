@@ -7,5 +7,7 @@ void skill();
 void auton_quals();
 void auton_left();
 void auton_right();
+void auton_timed_left();
+void auton_timed_right();
 
 #endif

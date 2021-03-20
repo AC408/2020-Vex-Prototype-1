@@ -18,6 +18,8 @@ void competition_initialize() {}
 void autonomous()
 {
 //	test();
+	auton_timed_left();
+//auton_timed_right();
 }
 
 void opcontrol()
