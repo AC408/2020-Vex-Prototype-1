@@ -19,7 +19,7 @@ void autonomous()
 {
 //	test();
 	auton_timed_left();
-//auton_timed_right();
+//	auton_timed_home_left();
 }
 
 void opcontrol()

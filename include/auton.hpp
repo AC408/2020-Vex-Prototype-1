@@ -9,5 +9,7 @@ void auton_left();
 void auton_right();
 void auton_timed_left();
 void auton_timed_right();
+void auton_timed_home();
+void auton_timed_home_left();
 
 #endif

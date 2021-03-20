@@ -249,7 +249,24 @@ void auton_timed_right(){ //right
     set_intake(127);
     pros::delay(1000);
     set_tank(-50, 50);
-    pros::delay(625);
+    pros::delay(617);
+    set_tank(0,0);
+    pros::delay(500);
+    set_tank(50,50);
+    pros::delay(2200);
+    set_tank(0,0);
+    pros::delay(500);
+    set_tank(-100,-100);
+    pros::delay(500);
+    set_tank(0,0);
+    pros::delay(20);
+}
+
+void auton_timed_left(){ //left
+    set_intake(127);
+    pros::delay(1000);
+    set_tank(50, -50);
+    pros::delay(600);
     set_tank(0,0);
     pros::delay(20);
     set_tank(50,50);
@@ -262,21 +279,98 @@ void auton_timed_right(){ //right
     pros::delay(20);
 }
 
-void auton_timed_left(){ //right
+void auton_timed_home(){ //right
+    set_drive_brake(MOTOR_BRAKE_HOLD);
+    set_intake(127);
+    pros::delay(1000);
+    set_tank(-50, 50);
+    pros::delay(1000);
+    set_tank(0,0);
+    pros::delay(100);
+    set_tank(50,50);
+    pros::delay(1500);
+    set_tank(0,0);
+    pros::delay(100);
+    set_tank(-50,50);
+    pros::delay(450);
+    //in front of center goal rn
+    set_tank(50,50);
+    pros::delay(500);
+    set_tank(-127,-127); //jiggle for second ball
+    pros::delay(300);
+    set_tank(127,127);
+    pros::delay(300);
+    set_tank(0,0);
+    pros::delay(100);
+    set_tank(-50,-50);
+    pros::delay(500);
+    set_tank(0,0);
+    pros::delay(100);
+    set_tank(-50,50);
+    pros::delay(400);
+    set_tank(0,0);
+    set_intake(-127);
+    pros::delay(500);
+    set_intake(0);
+    set_tank(50,-50);
+    pros::delay(400); //facing center goal again
+    set_tank(0,0);
+    pros::delay(100);
+    set_tank(50,50);
+    pros::delay(500);
+    set_intake(-127);
+    pros::delay(500);
+    set_tank(-50,-50);
+    set_intake(0);
+    pros::delay(500);
+    set_tank(0,0); //finished center, backed off half a tile
+}
+
+void auton_timed_home_left(){ //left
+    set_drive_brake(MOTOR_BRAKE_HOLD);
     set_intake(127);
     pros::delay(1000);
     set_tank(50, -50);
-    pros::delay(625);
+    pros::delay(1000);
     set_tank(0,0);
-    pros::delay(20);
+    pros::delay(100);
     set_tank(50,50);
-    pros::delay(2200);
+    pros::delay(1500);
     set_tank(0,0);
+    pros::delay(100);
+    set_tank(50,-50);
+    pros::delay(450);
+    //in front of center goal rn
+    set_tank(50,50);
     pros::delay(500);
-    set_tank(-100,-100);
+    set_tank(-127,-127); //jiggle for second ball
+    pros::delay(300);
+    set_tank(127,127);
+    pros::delay(300);
+    set_tank(0,0);
+    pros::delay(100);
+    set_tank(-50,-50);
     pros::delay(500);
     set_tank(0,0);
-    pros::delay(20);
+    pros::delay(100);
+    set_tank(50,-50);
+    pros::delay(400);
+    set_tank(0,0);
+    set_intake(-127);
+    pros::delay(500);
+    set_intake(0);
+    set_tank(-50,50);
+    pros::delay(400); //facing center goal again
+    set_tank(0,0);
+    pros::delay(100);
+    set_tank(50,50);
+    pros::delay(500);
+    set_intake(-127);
+    pros::delay(500);
+    set_tank(-50,-50);
+    set_intake(0);
+    pros::delay(500);
+    set_tank(0,0); //finished center, backed off half a tile
 }
 
 //no poking for descore
