@@ -4,9 +4,6 @@ pros::Controller master(CONTROLLER_MASTER);
 
 int intake_state = 0;
 
-int left = 0;
-int right = 0;
-
 float curve_function(int x)
 {
     if(CURVE_SCALE!=0)
@@ -16,6 +13,8 @@ float curve_function(int x)
 
 void drive_control(void *)
 {
+    int left = 0,
+        right = 0;
     set_drive_brake(MOTOR_BRAKE_COAST);
     while(true)
     {

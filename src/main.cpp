@@ -10,6 +10,7 @@ void initialize()
 	calibrate();
 	pros::delay(200);
 	pros::Task sensor_t(sensors, nullptr, "name");
+	pros::Task intake_control_t(intake_control, nullptr, "name");
 }
 
 void disabled() {}
@@ -18,20 +19,18 @@ void competition_initialize() {}
 void autonomous()
 {
 //	test();
-	auton_timed_left();
+//	home_row(LEFT);
+//	home_row(RIGHT);
 //	auton_timed_home_left();
 }
 
 void opcontrol()
 {
 	chassis_control_t.remove();
-
 	pros::Task drive_control_t(drive_control, nullptr, "name");
-	pros::Task intake_control_t(intake_control, nullptr, "name");
 
 	while(true)
 	{
-		//intake
 		if(master.get_digital(DIGITAL_R1))			intake_state = IN;
 		else if(master.get_digital(DIGITAL_R2))		intake_state = OUT;
 		else										intake_state = STOP;

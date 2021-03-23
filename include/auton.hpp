@@ -1,15 +1,13 @@
 #ifndef AUTON_HPP
 #define AUTON_HPP
 
+#define LEFT 1
+#define RIGHT -1
+
 void chassis_control(void *);
 void test();
 void skill();
-void auton_quals();
-void auton_left();
-void auton_right();
-void auton_timed_left();
-void auton_timed_right();
-void auton_timed_home();
-void auton_timed_home_left();
+void home_row(int side);
+void center(int side);
 
 #endif
