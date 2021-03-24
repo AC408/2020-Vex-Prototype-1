@@ -160,7 +160,7 @@ void waitUntilSettled()
 {
     while(!isSettled){
 		pros::delay(20); 
-	}
+	} pros::delay(100);
 }
 
 //test
