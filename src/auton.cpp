@@ -16,16 +16,19 @@ double targetTheta = 0,
         omegaCap = 0,
         alphaLimit = 0,
         omegaLimit = 0,
-        theta_tolerance = 0;
+        theta_tolerance = 0,
+        desired_theta = 0,
+        actual_theta = 0;
 
 bool isSettled = false;
 
 //gains
 double kP_turn = 0,
-        kP = 0;
+        kP = 0,
+        kP_heading = 1.1;
 
 //drive function
-void set_angle(double angle, double omega = 100, double alpha = 5, double theta_tol = 2, double theta_gain = 1.1){
+void set_angle(double angle, double omega = 100, double alpha = 5, double theta_tol = 2, double theta_gain = 1.1){ //left is negative
     reset_imu();
     targetTheta = angle + 180;
     omegaLimit = omega;
@@ -34,9 +37,10 @@ void set_angle(double angle, double omega = 100, double alpha = 5, double theta_
     theta_tolerance = theta_tol;
     isSettled = false;
     state = 1;
+    desired_theta += targetTheta;
 }
 
-void set_dist(double dist, double speed = 100, double accel = 5, double tol = 100, double gain = .1){
+void set_dist(double dist, double speed = 100, double accel = 5, double tol = 100, double gain = .1){ //100 dist is approx 1 inch
     reset_drive_encoder();
     targetLeft = targetRight = dist;
     speedLimit = speed;
@@ -88,7 +92,8 @@ void chassis_control(void *)
                         isSettled = true;
                         targetTheta = signTheta = outputTheta = errorTheta = 0;
                         state = 0;
-                        set_tank(0, 0);    
+                        set_tank(0, 0);
+                        actual_theta += get_angle();    
                         reset_imu();
                         break;
                     }
@@ -106,8 +111,10 @@ void chassis_control(void *)
                     signLeft = errorLeft / abs(errorLeft);
                     signRight = errorRight / abs(errorRight);
 
-                    outputLeft = errorLeft * kP;
-                    outputRight = errorRight * kP;
+                    double heading_output = (desired_theta - actual_theta) * kP_heading;
+
+                    outputLeft = (errorLeft * kP) + ((errorLeft * kP)/ 90 * heading_output);
+                    outputRight = (errorRight * kP) - ((errorRight * kP)/ 90 * heading_output);
 
                     velCap += accelLimit;
 
@@ -126,6 +133,7 @@ void chassis_control(void *)
                         targetLeft = targetRight = signLeft = signRight = outputLeft = outputRight = errorLeft = errorRight = 0;
                         state = 0;
                         set_tank(0,0);
+                        actual_theta += get_angle();
                         reset_imu();
                         break;
                     }
