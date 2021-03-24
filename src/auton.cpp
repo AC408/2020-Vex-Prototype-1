@@ -21,7 +21,7 @@ double theta_tolerance = 0;
 bool isSettled = false;
 
 //gains
-double kP_turn = .2;
+double kP_turn = 5;
 double kP = .1;
 
 //drive function
@@ -92,6 +92,8 @@ void chassis_control(void *)
                         reset_imu();
                         break;
                     }
+                    pros::lcd::set_text(5, "left"+std::to_string(outputLeft));
+                    pros::lcd::set_text(6, "right"+std::to_string(outputRight));
                     set_tank(outputLeft, outputRight);    
                     break;
 
@@ -127,6 +129,8 @@ void chassis_control(void *)
                         reset_imu();
                         break;
                     }
+                    pros::lcd::set_text(5, "left"+std::to_string(outputLeft));
+                    pros::lcd::set_text(6, "right"+std::to_string(outputRight));
                     set_tank(outputLeft, outputRight);    
                     break;
                 }
@@ -143,18 +147,24 @@ void chassis_control(void *)
 void score(){
 }
 
-//----------------------------------------------------------------
-
 //test
-void test(){
-	set_angle(100);
+void test()
+{
+    set_dist(2000);
+    while(!isSettled)
+    {
+        pros::delay(20);
+    }
+    set_angle(90);
 	while(!isSettled){
-		pros::delay(20);
-	} set_dist(2000);
+		pros::delay(20); 
+	}
+    intake_state = IN;
 }
 
 //skill
-void skill(){
+void skill()
+{
 
 }
 

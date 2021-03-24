@@ -8,7 +8,7 @@ void initialize()
 	pros::lcd::initialize();
 	reset_all_encoders();
 	calibrate();
-	pros::delay(200);
+	pros::delay(3000);
 	pros::Task sensor_t(sensors, nullptr, "name");
 	pros::Task intake_control_t(intake_control, nullptr, "name");
 }
@@ -18,7 +18,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-//	test();
+	test();
 //	home_row(LEFT);
 //	home_row(RIGHT);
 //	auton_timed_home_left();

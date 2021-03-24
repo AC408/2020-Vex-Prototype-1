@@ -13,7 +13,7 @@ pros::Motor LBd(1, MOTOR_GEARSET_6, true),
             LIntake(8, MOTOR_GEARSET_6, true),
             RIntake(18, MOTOR_GEARSET_6);
 
-pros::Imu imu(1);
+pros::Imu imu(3);
 
 //Math
 int sgn(int input)
