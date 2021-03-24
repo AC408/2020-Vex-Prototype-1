@@ -4,30 +4,30 @@
 int state = 0;
 
 //global params
-double targetTheta = 0;
-double targetLeft = 0;
-double targetRight = 0;
+double targetTheta = 0,
+        targetLeft = 0,
+        targetRight = 0,
+        
+        velCap = 0,
+        accelLimit = 0,
+        speedLimit = 0,
+        tolerance = 0,
 
-double velCap = 0;
-double accelLimit = 0;
-double speedLimit = 0;
-double tolerance = 0;
-
-double omegaCap = 0;
-double alphaLimit = 0;
-double omegaLimit = 0;
-double theta_tolerance = 0;
+        omegaCap = 0,
+        alphaLimit = 0,
+        omegaLimit = 0,
+        theta_tolerance = 0;
 
 bool isSettled = false;
 
 //gains
-double kP_turn = 5;
-double kP = .1;
+double kP_turn = 0,
+        kP = 0;
 
 //drive function
-void set_angle(double angle, double omega = 100, double alpha = 5, double theta_tol = 15, double theta_gain = .2){
-    reset_drive_encoder();
-    targetTheta = angle;
+void set_angle(double angle, double omega = 100, double alpha = 5, double theta_tol = 2, double theta_gain = 1.1){
+    reset_imu();
+    targetTheta = angle + 180;
     omegaLimit = omega;
     alphaLimit = alpha;
     kP_turn = theta_gain;
@@ -92,7 +92,8 @@ void chassis_control(void *)
                         reset_imu();
                         break;
                     }
-                    pros::lcd::set_text(5, "output"+std::to_string(outputTheta));
+                    pros::lcd::set_text(5, "left"+std::to_string(outputTheta));
+                    pros::lcd::set_text(6, "right"+std::to_string(-outputTheta));
                     set_tank(outputTheta, -outputTheta);    
                     break;
 
@@ -146,18 +147,36 @@ void chassis_control(void *)
 void score(){
 }
 
+//im lazy
+void waitUntilSettled()
+{
+    while(!isSettled){
+		pros::delay(20); 
+	}
+}
+
 //test
 void test()
 {
-    set_dist(2000);
-    while(!isSettled)
-    {
-        pros::delay(20);
-    }
+    set_dist(3000);
+    waitUntilSettled();
+    set_angle(-90);
+    waitUntilSettled();
+    set_dist(1000);
+    waitUntilSettled();
+    set_angle(-90);
+    waitUntilSettled();
+    set_dist(1000);
+    waitUntilSettled();
+    set_angle(-90);
+    waitUntilSettled();
+    set_dist(1000);
+    waitUntilSettled();
     set_angle(90);
-	while(!isSettled){
-		pros::delay(20); 
-	}
+    waitUntilSettled();
+    set_dist(2000);
+    waitUntilSettled();
+
     intake_state = IN;
 }
 

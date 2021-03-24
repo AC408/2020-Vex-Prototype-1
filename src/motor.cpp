@@ -73,7 +73,7 @@ void calibrate()
 
 void reset_imu()
 {
-    imu.tare();
+    imu.set_heading(180);
 }
 
 double get_angle()
