@@ -80,7 +80,7 @@ void chassis_control(void *)
                     if (omegaCap > omegaLimit)
                         omegaCap = omegaLimit;
 
-                    if (abs(outputTheta) > velCap)
+                    if (abs(outputTheta) > omegaCap)
                         outputTheta = omegaCap * signTheta;
 
                     if (abs(errorTheta) < theta_tolerance)
@@ -92,9 +92,8 @@ void chassis_control(void *)
                         reset_imu();
                         break;
                     }
-                    pros::lcd::set_text(5, "left"+std::to_string(outputLeft));
-                    pros::lcd::set_text(6, "right"+std::to_string(outputRight));
-                    set_tank(outputLeft, outputRight);    
+                    pros::lcd::set_text(5, "output"+std::to_string(outputTheta));
+                    set_tank(outputTheta, -outputTheta);    
                     break;
 
                 }
