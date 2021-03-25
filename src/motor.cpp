@@ -73,12 +73,12 @@ void calibrate()
 
 void reset_imu()
 {
-    imu.set_heading(90);
+    imu.set_heading(0);
 }
 
 double get_angle()
 {
-    return imu.get_heading();
+    return imu.get_rotation();
 }
 
 //intake
