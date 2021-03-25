@@ -17,7 +17,8 @@ double targetTheta = 0,
         alphaLimit = 0,
         omegaLimit = 0,
         theta_tolerance = 0,
-        last_desired = 0;
+        last_desired = 0,
+        in_to_encoder = 100;
 
 bool isSettled = false;
 
@@ -41,7 +42,7 @@ void set_angle(double angle, double omega = 100, double alpha = 5, double theta_
 
 void set_dist(double dist, double speed = 100, double accel = 5, double tol = 100, double gain = .1){ //100 dist is approx 1 inch
     reset_drive_encoder();
-    targetLeft = targetRight = dist;
+    targetLeft = targetRight = dist * in_to_encoder;
     speedLimit = speed;
     accelLimit = accel;
     kP = gain;
@@ -161,23 +162,23 @@ void waitUntilSettled()
 //test
 void test()
 {
-    set_dist(3000);
+    set_dist(30);
     waitUntilSettled();
     set_angle(-90);
     waitUntilSettled();
-    set_dist(1000);
+    set_dist(10);
     waitUntilSettled();
     set_angle(-180);
     waitUntilSettled();
-    set_dist(1000);
+    set_dist(10);
     waitUntilSettled();
     set_angle(-270);
     waitUntilSettled();
-    set_dist(1000);
+    set_dist(10);
     waitUntilSettled();
     set_angle(-180);
     waitUntilSettled();
-    set_dist(2000);
+    set_dist(20);
     waitUntilSettled();
 
     intake_state = IN;
