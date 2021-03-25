@@ -110,8 +110,8 @@ void chassis_control(void *)
 
                     double heading_output = (last_desired - get_angle()) * kP_heading;
 
-                    outputLeft = (errorLeft * kP) + ((errorLeft * kP)/ 90 * heading_output);
-                    outputRight = (errorRight * kP) - ((errorRight * kP)/ 90 * heading_output);
+                    outputLeft = (errorLeft * kP) /*+ ((errorLeft * kP)/ 90 * heading_output)*/;
+                    outputRight = (errorRight * kP) /*- ((errorRight * kP)/ 90 * heading_output)*/;
 
                     velCap += accelLimit;
 
@@ -168,15 +168,15 @@ void test()
     waitUntilSettled();
     set_dist(1000);
     waitUntilSettled();
-    set_angle(-180);
+    set_angle(-90);
     waitUntilSettled();
     set_dist(1000);
     waitUntilSettled();
-    set_angle(-270);
+    set_angle(-90);
     waitUntilSettled();
     set_dist(1000);
     waitUntilSettled();
-    set_angle(-180);
+    set_angle(90);
     waitUntilSettled();
     set_dist(2000);
     waitUntilSettled();
