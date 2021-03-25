@@ -36,7 +36,7 @@ void set_angle(double angle, double omega = 100, double alpha = 5, double theta_
     theta_tolerance = theta_tol;
     isSettled = false;
     state = 1;
-    last_desired += targetTheta;
+    last_desired = targetTheta;
 }
 
 void set_dist(double dist, double speed = 100, double accel = 5, double tol = 100, double gain = .1){ //100 dist is approx 1 inch
@@ -110,8 +110,8 @@ void chassis_control(void *)
 
                     double heading_output = (last_desired - get_angle()) * kP_heading;
 
-                    outputLeft = (errorLeft * kP) /*+ ((errorLeft * kP)/ 90 * heading_output)*/;
-                    outputRight = (errorRight * kP) /*- ((errorRight * kP)/ 90 * heading_output)*/;
+                    outputLeft = (errorLeft * kP) + ((errorLeft * kP)/ 90 * heading_output);
+                    outputRight = (errorRight * kP) - ((errorRight * kP)/ 90 * heading_output);
 
                     velCap += accelLimit;
 
@@ -130,7 +130,6 @@ void chassis_control(void *)
                         targetLeft = targetRight = signLeft = signRight = outputLeft = outputRight = errorLeft = errorRight = 0;
                         state = 0;
                         set_tank(0,0);
-                        reset_imu();
                         break;
                     }
                     pros::lcd::set_text(5, "left"+std::to_string(outputLeft));
@@ -168,15 +167,15 @@ void test()
     waitUntilSettled();
     set_dist(1000);
     waitUntilSettled();
-    set_angle(-90);
+    set_angle(-180);
     waitUntilSettled();
     set_dist(1000);
     waitUntilSettled();
-    set_angle(-90);
+    set_angle(-270);
     waitUntilSettled();
     set_dist(1000);
     waitUntilSettled();
-    set_angle(90);
+    set_angle(-180);
     waitUntilSettled();
     set_dist(2000);
     waitUntilSettled();
