@@ -30,7 +30,7 @@ double kP_turn = 0,
 //drive function
 void set_angle(double angle, double omega = 100, double alpha = 5, double theta_tol = 2, double theta_gain = 1.1){ //left is negative
     reset_imu();
-    targetTheta = angle + 180;
+    targetTheta = angle + 90;
     omegaLimit = omega;
     alphaLimit = alpha;
     kP_turn = theta_gain;
