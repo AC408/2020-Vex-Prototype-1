@@ -96,7 +96,7 @@ void set_intake_brake(pros::motor_brake_mode_e brake)
 
 double get_intake_pos()
 {
-    return (LIntake.get_position()+RIntake.get_position())/2;
+    return (LIntake.get_position() + RIntake.get_position()) / 2;
 }
 
 void reset_intake()

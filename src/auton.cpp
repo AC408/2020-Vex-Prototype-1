@@ -40,7 +40,7 @@ void set_angle(double angle, double omega = 100, double alpha = 5, double theta_
     last_desired = targetTheta;
 }
 
-void set_dist(double dist, double speed = 100, double accel = 5, double tol = 100, double gain = .1){ //100 dist is approx 1 inch
+void set_dist(double dist, double speed = 100, double accel = 5, double tol = 30, double gain = .1){ //100 dist is approx 1 inch
     reset_drive_encoder();
     targetLeft = targetRight = dist * in_to_encoder;
     speedLimit = speed;
@@ -147,16 +147,36 @@ void chassis_control(void *)
     }
 }
 
-//score macro
-void score(){
+void deploy()
+{
+    intake_state = OUT;
+    pros::delay(1000);
 }
 
-//im lazy
 void waitUntilSettled()
 {
     while(!isSettled){
 		pros::delay(20); 
 	} pros::delay(100);
+}
+
+void descore(int balls)
+{
+    for (int i = 0; i < balls; i++)
+    {
+        set_dist(5);
+        waitUntilSettled();
+        set_dist(-5);
+        waitUntilSettled();
+    }
+}
+
+void outtake()
+{
+    intake_state = OUT;
+    pros::delay(600);
+    set_intake_brake(MOTOR_BRAKE_HOLD);
+    intake_state = STOP;
 }
 
 //test
@@ -193,91 +213,84 @@ void skill()
 void home_row(int side)
 {
     intake_state = IN;
-    set_dist(24);
-    while(!isSettled){
-        pros::delay(20);
-    } set_angle(side * 90);
-    while(!isSettled){
-        pros::delay(20);
-    } set_dist(48);
-    while(!isSettled){
-        pros::delay(20);
-    } set_angle(90); //turn towards center goal
-    while(!isSettled){
-        pros::delay(20);
-    } set_dist(5);
-    while(!isSettled){
-        pros::delay(20);
-    } pros::delay(200); //wait for center goal to descore
+
+    //drive to middle goal
+    set_dist(48);
+    waitUntilSettled();
+
+    //turn to face middle goal
+    set_angle(side * (90 + STARTING_ANGLE));
+    waitUntilSettled();
+
+    //descore
+    descore(2);
+
+    //let go of one ball
+    set_angle(side * (110 + STARTING_ANGLE));
+    waitUntilSettled();
+    outtake();
+    set_angle(side * (90 + STARTING_ANGLE));
+    waitUntilSettled();
+
+    //score a ball into the goal
+    set_dist(5);
+    waitUntilSettled();
+    intake_state = OUT;
+    pros::delay(600);
     set_dist(-5);
-    while(!isSettled){
-        pros::delay(20);
-    } set_angle(10);
-    while(!isSettled){
-        pros::delay(20);
-    } set_intake(-100); //descore one ball
-    pros::delay(100);
-    set_intake(0);
-    set_angle(-10);
-    while(!isSettled){
-        pros::delay(20);
-    } set_intake(-127); //descore to score one ball
-    pros::delay(100);
-    set_intake(0);
-    set_angle(-90);
-    while(!isSettled){
-        pros::delay(20);
-    } set_dist(48);
-    while(!isSettled){
-        pros::delay(20);
-    } set_angle(45);
-    while(!isSettled){
-        pros::delay(20);
-    } set_intake(127);
-    set_tank(50,50); //descore goal
-    pros::delay(500);
-    set_tank(-50,-50);
-    pros::delay(200);
-    set_tank(-50,50);
-    pros::delay(200);
-    set_intake(-127);
-    pros::delay(100);
-    set_intake(0);
-    set_tank(50,-50);
-    pros::delay(200);
-    set_tank(50,50);
-    pros::delay(200);
-    set_intake(-127);
-    pros::delay(100);
-    set_tank(-70,-70);
-    set_intake(0);
-    pros::delay(200);
-    set_tank(0,0);
+    waitUntilSettled();
+    set_intake_brake(MOTOR_BRAKE_COAST);
+    intake_state = IN;
+
+    //turn to be parallel to wall
+    set_angle(side * STARTING_ANGLE);
+    waitUntilSettled();
+
+    //drive to corner goal
+    set_dist(48);
+    waitUntilSettled();
+    
+    //turn to face corner goal
+    set_angle(side * (45 + STARTING_ANGLE));
+    waitUntilSettled();
+
+    //descore
+    descore(2);
+
+    //let go of one ball
+    set_angle(side * (110 + STARTING_ANGLE));
+    waitUntilSettled();
+    outtake();
+    set_angle(side * (90 + STARTING_ANGLE));
+    waitUntilSettled();
+
+    //score a ball into the goal
+    set_dist(5);
+    waitUntilSettled();
+    intake_state = OUT;
+    pros::delay(600);
+    set_dist(-5);
+    waitUntilSettled();
+    set_intake_brake(MOTOR_BRAKE_COAST);
+    intake_state = IN;
+
+    //back away from goal
+    set_dist(-8);
+    waitUntilSettled();
 }
 
-void center()
+void center_row(int side)
 {
-    set_intake(100);
-    set_dist(48); //drive to center
-    while(!isSettled){ //wait until settled
-        pros::delay(20);
-    } set_angle(90); //turn towards center goal
-    while(!isSettled){
-        pros::delay(20); 
-    } set_dist(24); //drive to center goal
-    while(!isSettled){
-        pros::delay(20);
-    } set_intake(-100); //score
-    pros::delay(500);
-    set_intake(0);
-    set_dist(-24); //back away
-    while(!isSettled){
-        pros::delay(20);
-    }
+    intake_state = IN;
+
+    //turn towards goal
+    set_angle(-90 * side);
+    waitUntilSettled();
+
+    //drive to goal
+    set_dist(48);
+    waitUntilSettled();
+
+    //descore
+    descore(3);
 }
-
-//no poking for descore
-//back and forth motion for descore
-//preauton or cata to score preload 
-
-//where is starting location for cata to shoot?

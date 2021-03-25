@@ -3,11 +3,17 @@
 
 #define LEFT 1
 #define RIGHT -1
+#define STARTING_ANGLE 18
 
 void chassis_control(void *);
+
+void deploy();
+
 void test();
+
 void skill();
+
 void home_row(int side);
-void center(int side);
+void center_row(int side);
 
 #endif

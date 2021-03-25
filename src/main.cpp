@@ -18,10 +18,15 @@ void competition_initialize() {}
 
 void autonomous()
 {
+	deploy();
+
 	test();
+	
 //	home_row(LEFT);
 //	home_row(RIGHT);
-//	auton_timed_home_left();
+
+//	center_row(LEFT);
+//	center_row(RIGHT);
 }
 
 void opcontrol()
