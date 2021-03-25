@@ -40,7 +40,8 @@ void intake_control(void *)
             case STOP:
                 set_intake(0);
                 break;
-            case 3: //auton functions
+            case SLOW_OUT:
+                set_intake(-80);
                 break;
         }
         pros::delay(20);

@@ -4,6 +4,7 @@
 #define IN 1
 #define OUT 2
 #define STOP 0
+#define SLOW_OUT 3
 #define CURVE_SCALE 2.2
 
 void drive_control(void *);

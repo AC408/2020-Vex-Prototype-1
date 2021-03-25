@@ -20,9 +20,9 @@ void autonomous()
 {
 	deploy();
 
-	test();
+//	test();
 	
-//	home_row(LEFT);
+	home_row(LEFT);
 //	home_row(RIGHT);
 
 //	center_row(LEFT);
