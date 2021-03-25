@@ -22,10 +22,10 @@ void autonomous()
 
 //	test();
 	
-	home_row(LEFT);
+//	home_row(LEFT);
 //	home_row(RIGHT);
 
-//	center_row(LEFT);
+	center_row(LEFT);
 //	center_row(RIGHT);
 }
 

@@ -150,7 +150,7 @@ void chassis_control(void *)
 void deploy()
 {
     intake_state = OUT;
-    pros::delay(1000);
+    pros::delay(600);
 }
 
 void waitUntilSettled()
@@ -174,7 +174,7 @@ void descore(int balls)
 void outtake()
 {
     intake_state = SLOW_OUT;
-    pros::delay(600);
+    pros::delay(100);
     set_intake_brake(MOTOR_BRAKE_HOLD);
     intake_state = STOP;
 }
@@ -220,12 +220,12 @@ void home_row(int side)
     waitUntilSettled();
 
     //descore
-    set_dist(15, 110, 10, 100, .3);
+    set_dist(13.5, 110, 10, 100, .3);
     waitUntilSettled();
     descore(2);
 
     //let go of one ball
-    set_angle(side * (130 + STARTING_ANGLE), 110, 10, 5, 1.85);
+    set_angle(side * (130 + STARTING_ANGLE), 110, 15, 5, 2);
     waitUntilSettled();
     outtake();
     set_angle(side * (90 + STARTING_ANGLE));
@@ -233,7 +233,7 @@ void home_row(int side)
 
     //score a ball into the goal
     intake_state = IN;
-    set_dist(5);
+    set_dist(7);
     waitUntilSettled();
     intake_state = OUT;
     pros::delay(600);
@@ -247,30 +247,30 @@ void home_row(int side)
     waitUntilSettled();
 
     //drive to corner goal
-    set_dist(40, 110, 100, .15);
+    set_dist(43, 110, 5, 100, .15);
     waitUntilSettled();
     
     //turn to face corner goal
-    set_angle(side * (45 + STARTING_ANGLE));
+    set_angle(side * (45 + STARTING_ANGLE), 100, 7, 2, 1.4);
     waitUntilSettled();
 
     //drive into corner
-    set_dist(3);
+    set_dist(15, 110, 10, 100, .3);
     waitUntilSettled();
 
     //descore
     descore(2);
 
     //let go of one ball
-    set_angle(side * (130 + STARTING_ANGLE), 110, 10, 5, 1.85);
+    set_angle(side * (120 + STARTING_ANGLE)/*, 110, 11, 5, 2*/);
     waitUntilSettled();
     outtake();
-    set_angle(side * (90 + STARTING_ANGLE));
+    set_angle(side * (45 + STARTING_ANGLE));
     waitUntilSettled();
 
     //score a ball into the goal
     intake_state = IN;
-    set_dist(5);
+    set_dist(7);
     waitUntilSettled();
     intake_state = OUT;
     pros::delay(600);
@@ -289,11 +289,11 @@ void center_row(int side)
     intake_state = IN;
 
     //turn towards goal
-    set_angle(-90 * side);
+    set_angle(-80 * side);
     waitUntilSettled();
 
     //drive to goal
-    set_dist(48);
+    set_dist(44);
     waitUntilSettled();
 
     //descore
