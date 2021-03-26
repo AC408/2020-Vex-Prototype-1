@@ -242,6 +242,28 @@ void home_row(int side)
     set_intake_brake(MOTOR_BRAKE_COAST);
     intake_state = IN;
 
+    //revised code
+    //turn to face corner goal
+    set_dist(-24);
+    waitUntilSettled();
+    set_angle(side * (30+STARTING_ANGLE), 100, 5, 2, 1.1);
+    waitUntilSettled();
+
+    //drive to corner goal
+    set_dist(55,110,5,100,.15);
+    waitUntilSettled();
+
+    //descore
+    descore(2);
+
+    //let go of one ball
+    set_angle(side * (180 + STARTING_ANGLE)/*, 110, 11, 5, 2*/);
+    waitUntilSettled();
+    outtake();
+    set_angle(side * (45 + STARTING_ANGLE));
+    waitUntilSettled();
+
+/*
     //turn to be parallel to wall
     set_angle(side * STARTING_ANGLE, 100, 5, 2, 1.1);
     waitUntilSettled();
@@ -260,13 +282,13 @@ void home_row(int side)
 
     //descore
     descore(2);
-
-    //let go of one ball
-    set_angle(side * (120 + STARTING_ANGLE)/*, 110, 11, 5, 2*/);
-    waitUntilSettled();
-    outtake();
-    set_angle(side * (45 + STARTING_ANGLE));
-    waitUntilSettled();
+*/
+    // //let go of one ball
+    // set_angle(side * (120 + STARTING_ANGLE)/*, 110, 11, 5, 2*/);
+    // waitUntilSettled();
+    // outtake();
+    // set_angle(side * (45 + STARTING_ANGLE));
+    // waitUntilSettled();
 
     //score a ball into the goal
     intake_state = IN;
@@ -298,4 +320,20 @@ void center_row(int side)
 
     //descore
     descore(3);
+
+    //release one ball
+    set_angle(STARTING_ANGLE, 110, 15, 5, 2);
+    waitUntilSettled();
+    outtake();
+    set_angle(-80 * side);
+    waitUntilSettled();
+
+    //score
+    intake_state = IN;
+    set_dist(7);
+    waitUntilSettled();
+    intake_state = OUT;
+    pros::delay(600);
+    set_dist(-10);
+    waitUntilSettled();    
 }
