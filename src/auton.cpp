@@ -150,14 +150,15 @@ void chassis_control(void *)
 void deploy()
 {
     intake_state = OUT;
-    pros::delay(600);
+    pros::delay(450);
+//    pros::delay(600);
 }
 
 void waitUntilSettled()
 {
     while(!isSettled){
 		pros::delay(20); 
-	} pros::delay(100);
+	} pros::delay(50);
 }
 
 void descore(int balls)
