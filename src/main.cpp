@@ -21,11 +21,11 @@ void autonomous()
 	deploy();
 
 //	test();
-	
-//	home_row(LEFT);
-//	home_row(RIGHT);
 
+//	home_row(RIGHT);	
+//	home_row(LEFT);
 	center_row(RIGHT);
+//	skill();
 }
 
 void opcontrol()

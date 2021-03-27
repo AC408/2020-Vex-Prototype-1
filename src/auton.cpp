@@ -181,30 +181,284 @@ void outtake()
 
 void test()
 {
-    set_dist(30);
-    waitUntilSettled();
-    set_angle(-90);
-    waitUntilSettled();
-    set_dist(10);
-    waitUntilSettled();
-    set_angle(-180);
-    waitUntilSettled();
-    set_dist(10);
-    waitUntilSettled();
-    set_angle(-270);
-    waitUntilSettled();
-    set_dist(10);
-    waitUntilSettled();
-    set_angle(-180);
-    waitUntilSettled();
-    set_dist(20);
+    intake_state = IN;
+
+    //turn towards goal
+    set_angle(-80 * -1, 40, 5, 1, 2.1);
     waitUntilSettled();
 
+    //drive to goal
+    set_dist(45, 118, 5, 120, .15);
+    waitUntilSettled();
+
+    //descore
+    descore(3);
+
+    //release one ball
+    set_angle(STARTING_ANGLE - 30, 110, 15, 5, 2);
+    waitUntilSettled();
+    outtake();
+    set_angle(-80 * -1);
+    waitUntilSettled();
+
+    //score
     intake_state = IN;
+    set_dist(7);
+    waitUntilSettled();
+    intake_state = OUT;
+    pros::delay(600);
+    set_dist(-10);
+    waitUntilSettled();    
 }
 
 void skill()
 {
+    intake_state = IN;
+
+    //drive to middle goal
+    set_dist(50);
+    waitUntilSettled();
+
+    //turn to face middle goal
+    set_angle(-1 * (90 + STARTING_ANGLE));
+    waitUntilSettled();
+
+    //descore
+    set_dist(13.5, 118, 10, 100, .3);
+    pros::delay(1200);
+    descore(1);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //turn to be parallel to wall
+    set_angle(-1 * STARTING_ANGLE, 118, 5, 2, 1.2);
+    waitUntilSettled();
+
+    //drive to corner goal
+    set_dist(46, 118, 5, 100, .15);
+    waitUntilSettled();
+    
+    //turn to face corner goal
+    set_angle(-1 * (45 + STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive into corner
+    set_dist(12.5, 118, 10, 100, .3);
+    pros::delay(1200);
+
+    //descore
+    descore(2);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //parallel to left wall
+    set_angle(90 - STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive to left center
+    set_dist(50);
+    waitUntilSettled();
+
+    //turn towards left center
+    set_angle(-1 * STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //descore
+    set_dist(13.5, 118, 10, 100, .3);
+    pros::delay(1200);
+    descore(1);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //turn to be parallel to wall
+    set_angle(90 - STARTING_ANGLE, 118, 5, 2, 1.2);
+    waitUntilSettled();
+
+    //drive to corner goal
+    set_dist(46, 118, 5, 100, .15);
+    waitUntilSettled();
+    
+    //turn to face corner goal
+    set_angle((45 - STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive into corner
+    set_dist(12.5, 118, 10, 100, .3);
+    pros::delay(1200);
+
+    //descore
+    descore(2);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //parallel to top wall
+    set_angle(180 - STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive to top center
+    set_dist(50);
+    waitUntilSettled();
+
+    //turn towards left center
+    set_angle(90 - STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //descore
+    set_dist(13.5, 118, 10, 100, .3);
+    pros::delay(1200);
+    descore(1);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //turn to be parallel to wall
+    set_angle(180 - STARTING_ANGLE, 118, 5, 2, 1.2);
+    waitUntilSettled();
+
+    //drive to corner goal
+    set_dist(46, 118, 5, 100, .15);
+    waitUntilSettled();
+    
+    //turn to face corner goal
+    set_angle((135 - STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive into corner
+    set_dist(12.5, 118, 10, 100, .3);
+    pros::delay(1200);
+
+    //descore
+    descore(2);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //parallel to right wall
+    set_angle(270 - STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive to right center
+    set_dist(50);
+    waitUntilSettled();
+
+    //turn towards left center
+    set_angle(180 - STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //descore
+    set_dist(13.5, 118, 10, 100, .3);
+    pros::delay(1200);
+    descore(1);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //facing center center with a slant
+    set_angle(STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive to center center
+    set_dist(38);
+    waitUntilSettled();
+    set_tank(70,70); //already poked out one ball, using volt bc dont know how long the dist is
+    pros::delay(1000);
+    set_tank(0,0);
+    pros::delay(100);
+
+    //descore
+    descore(2);
+    set_dist(-10);
+    waitUntilSettled();
+
+    //turn to face front-mid ball
+    set_angle(-1 * (45 + STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //get front-mid ball
+    set_dist(34);
+    waitUntilSettled();
+
+    //turn towards front-mid goal
+    set_angle(-1 * (90 + STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //score
+    set_dist(36);
+    waitUntilSettled();
+    set_tank(70,70);
+    pros::delay(1000);
+    set_tank(0,0);
+    pros::delay(100);
+    outtake();
+    set_dist(-36);
+    waitUntilSettled();
+
+    //turn towards left-mid ball
+    set_angle((45 - STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //get ball
+    set_dist(34);
+    waitUntilSettled();
+
+    //turn towards left-mid goal
+    set_angle(-1 * STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //score
+    set_dist(36);
+    waitUntilSettled();
+    set_tank(70,70);
+    pros::delay(1000);
+    set_tank(0,0);
+    pros::delay(100);
+    outtake();
+    set_dist(-36);
+    waitUntilSettled();
+
+    //turn towards back-mid ball
+    set_angle((135 - STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //get ball
+    set_dist(34);
+    waitUntilSettled();
+
+    //turn towards back-mid goal
+    set_angle(90 - STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //score
+    set_dist(36);
+    waitUntilSettled();
+    set_tank(70,70);
+    pros::delay(1000);
+    set_tank(0,0);
+    pros::delay(100);
+    outtake();
+    set_dist(-36);
+    waitUntilSettled();
+
+    //turn towards right-mid ball
+    set_angle((225 - STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //get ball
+    set_dist(34);
+    waitUntilSettled();
+
+    //turn towards right-mid goal
+    set_angle(180 - STARTING_ANGLE, 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //score
+    set_dist(36);
+    waitUntilSettled();
+    set_tank(70,70);
+    pros::delay(1000);
+    set_tank(0,0);
+    pros::delay(100);
+    outtake();
+    set_dist(-36);
+    waitUntilSettled();
+
 }
 
 void home_row(int side)
@@ -221,7 +475,7 @@ void home_row(int side)
 
     //descore
     set_dist(13.5, 118, 10, 100, .3);
-    waitUntilSettled();
+    pros::delay(600);
     descore(2);
 
     //let go of one ball
@@ -240,35 +494,15 @@ void home_row(int side)
     pros::delay(600);
     set_dist(-10);
     waitUntilSettled();
+    set_dist(-10);
+    waitUntilSettled();
     set_intake_brake(MOTOR_BRAKE_COAST);
     intake_state = IN;
-
-/*     //revised code
-    //turn to face corner goal
-    set_dist(-24);
-    waitUntilSettled();
-    set_angle(side * (30+STARTING_ANGLE), 100, 5, 2, 1.1);
-    waitUntilSettled();
-
-    //drive to corner goal
-    set_dist(55,110,5,100,.15);
-    waitUntilSettled();
-
-    //descore
-    descore(2);
-
-    //let go of one ball
-    set_angle(side * (180 + STARTING_ANGLE), 110, 11, 5, 2);
-    waitUntilSettled();
-    outtake();
-    set_angle(side * (45 + STARTING_ANGLE));
-    waitUntilSettled(); */
-
 
     //turn to be parallel to wall
     set_angle(side * STARTING_ANGLE, 118, 5, 2, 1.2);
     waitUntilSettled();
-
+   
     //drive to corner goal
     set_dist(46, 118, 5, 100, .15);
     waitUntilSettled();
@@ -278,8 +512,8 @@ void home_row(int side)
     waitUntilSettled();
 
     //drive into corner
-    set_dist(12.5, 118, 10, 100, .3);
-    waitUntilSettled();
+    set_dist(23, 118, 10, 100, .3);
+    pros::delay(600);
 
     //descore
     descore(2);
@@ -310,11 +544,11 @@ void center_row(int side)
     intake_state = IN;
 
     //turn towards goal
-    set_angle(-80 * side, 40, 5, 1, 2.1);
+    set_angle(-79 * side, 40, 5, 1, 2.1);
     waitUntilSettled();
 
     //drive to goal
-    set_dist(45, 118, 5, 120, .15);
+    set_dist(44.5, 118, 5, 120, .15);
     waitUntilSettled();
 
     //descore
@@ -333,6 +567,15 @@ void center_row(int side)
     waitUntilSettled();
     intake_state = OUT;
     pros::delay(600);
-    set_dist(-10);
+    set_dist(-12.5);
     waitUntilSettled();    
+    
+    // //turn to center
+    // set_angle(12, 110, 15, 1, 2);
+    // waitUntilSettled();
+    // set_dist(34);
+    // waitUntilSettled();
+    // set_tank(80,80);
+    // pros::delay(500);
+    // set_tank(0,0);
 }
