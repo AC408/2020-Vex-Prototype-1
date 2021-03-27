@@ -18,8 +18,13 @@ void drive_control(void *)
     set_drive_brake(MOTOR_BRAKE_COAST);
     while(true)
     {
+        //tank
         left = curve_function(master.get_analog(ANALOG_LEFT_Y));
         right = curve_function(master.get_analog(ANALOG_RIGHT_Y));
+        
+        //arcade
+        // left = curve_function(master.get_analog(ANALOG_LEFT_Y)) + master.get_analog(ANALOG_RIGHT_X);
+        // right = curve_function(master.get_analog(ANALOG_LEFT_Y)) - master.get_analog(ANALOG_RIGHT_X);
         set_tank(left,right);
     }
     pros::delay(20);

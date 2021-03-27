@@ -1,7 +1,7 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "REXhub",
+        "project_name": "R Edge",
         "target": "v5",
         "templates": {
             "gif-pros": {

@@ -28,7 +28,7 @@ double kP_turn = 0,
         kP_heading = 1.1;
 
 //drive function
-void set_angle(double angle, double omega = 100, double alpha = 5, double theta_tol = 2, double theta_gain = 1.1){ //counter-clockwise is negative
+void set_angle(double angle, double omega = 118, double alpha = 5, double theta_tol = 2, double theta_gain = 1.2){ //counter-clockwise is negative
 //    reset_imu();
     targetTheta = angle;
     omegaLimit = omega;
@@ -40,7 +40,7 @@ void set_angle(double angle, double omega = 100, double alpha = 5, double theta_
     last_desired = targetTheta;
 }
 
-void set_dist(double dist, double speed = 110, double accel = 5, double tol = 100, double gain = .15){ //100 dist is approx 1 inch
+void set_dist(double dist, double speed = 118, double accel = 5, double tol = 100, double gain = .15){ //100 dist is approx 1 inch
     reset_drive_encoder();
     targetLeft = targetRight = dist * in_to_encoder;
     speedLimit = speed;
@@ -150,8 +150,7 @@ void chassis_control(void *)
 void deploy()
 {
     intake_state = OUT;
-    pros::delay(450);
-//    pros::delay(600);
+    pros::delay(200);
 }
 
 void waitUntilSettled()
@@ -175,7 +174,7 @@ void descore(int balls)
 void outtake()
 {
     intake_state = SLOW_OUT;
-    pros::delay(100);
+    pros::delay(600);
     set_intake_brake(MOTOR_BRAKE_HOLD);
     intake_state = STOP;
 }
@@ -221,19 +220,20 @@ void home_row(int side)
     waitUntilSettled();
 
     //descore
-    set_dist(13.5, 110, 10, 100, .3);
+    set_dist(13.5, 118, 10, 100, .3);
     waitUntilSettled();
     descore(2);
 
     //let go of one ball
-    set_angle(side * (130 + STARTING_ANGLE), 110, 15, 5, 2);
+    set_angle(side * (130 + STARTING_ANGLE), 118, 16, 8, 2.1);
     waitUntilSettled();
     outtake();
-    set_angle(side * (90 + STARTING_ANGLE));
+    set_angle(side * (90 + STARTING_ANGLE), 118, 20, 8, 2.4);
+    pros::delay(200);
+    intake_state = IN;
     waitUntilSettled();
 
     //score a ball into the goal
-    intake_state = IN;
     set_dist(7);
     waitUntilSettled();
     intake_state = OUT;
@@ -243,7 +243,7 @@ void home_row(int side)
     set_intake_brake(MOTOR_BRAKE_COAST);
     intake_state = IN;
 
-    //revised code
+/*     //revised code
     //turn to face corner goal
     set_dist(-24);
     waitUntilSettled();
@@ -258,38 +258,40 @@ void home_row(int side)
     descore(2);
 
     //let go of one ball
-    set_angle(side * (180 + STARTING_ANGLE)/*, 110, 11, 5, 2*/);
+    set_angle(side * (180 + STARTING_ANGLE), 110, 11, 5, 2);
     waitUntilSettled();
     outtake();
     set_angle(side * (45 + STARTING_ANGLE));
-    waitUntilSettled();
+    waitUntilSettled(); */
 
-/*
+
     //turn to be parallel to wall
-    set_angle(side * STARTING_ANGLE, 100, 5, 2, 1.1);
+    set_angle(side * STARTING_ANGLE, 118, 5, 2, 1.2);
     waitUntilSettled();
 
     //drive to corner goal
-    set_dist(43, 110, 5, 100, .15);
+    set_dist(46, 118, 5, 100, .15);
     waitUntilSettled();
     
     //turn to face corner goal
-    set_angle(side * (45 + STARTING_ANGLE), 100, 7, 2, 1.4);
+    set_angle(side * (45 + STARTING_ANGLE), 118, 7, 2, 1.4);
     waitUntilSettled();
 
     //drive into corner
-    set_dist(15, 110, 10, 100, .3);
+    set_dist(12.5, 118, 10, 100, .3);
     waitUntilSettled();
 
     //descore
     descore(2);
-*/
-    // //let go of one ball
-    // set_angle(side * (120 + STARTING_ANGLE)/*, 110, 11, 5, 2*/);
-    // waitUntilSettled();
-    // outtake();
-    // set_angle(side * (45 + STARTING_ANGLE));
-    // waitUntilSettled();
+
+    //let go of one ball
+    set_angle(side * (120 + STARTING_ANGLE), 118, 11, 5, 2.1);
+    waitUntilSettled();
+    outtake();
+    set_angle(side * (45 + STARTING_ANGLE));
+    pros::delay(200);
+    intake_state = IN;
+    waitUntilSettled();
 
     //score a ball into the goal
     intake_state = IN;
@@ -297,13 +299,9 @@ void home_row(int side)
     waitUntilSettled();
     intake_state = OUT;
     pros::delay(600);
-    set_dist(-10);
-    waitUntilSettled();
-    set_intake_brake(MOTOR_BRAKE_COAST);
-    intake_state = IN;
 
     //back away from goal
-    set_dist(-8);
+    set_dist(-13);
     waitUntilSettled();
 }
 
@@ -312,18 +310,18 @@ void center_row(int side)
     intake_state = IN;
 
     //turn towards goal
-    set_angle(-80 * side);
+    set_angle(-80 * side, 40, 5, 1, 2.1);
     waitUntilSettled();
 
     //drive to goal
-    set_dist(44);
+    set_dist(45, 118, 5, 120, .15);
     waitUntilSettled();
 
     //descore
     descore(3);
 
     //release one ball
-    set_angle(STARTING_ANGLE, 110, 15, 5, 2);
+    set_angle(STARTING_ANGLE - 30, 110, 15, 5, 2);
     waitUntilSettled();
     outtake();
     set_angle(-80 * side);

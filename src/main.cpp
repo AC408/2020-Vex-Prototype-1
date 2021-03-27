@@ -25,8 +25,7 @@ void autonomous()
 //	home_row(LEFT);
 //	home_row(RIGHT);
 
-	center_row(LEFT);
-//	center_row(RIGHT);
+	center_row(RIGHT);
 }
 
 void opcontrol()
