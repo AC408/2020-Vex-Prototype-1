@@ -19,13 +19,8 @@ void competition_initialize() {}
 void autonomous()
 {
 	deploy();
-
-//	test();
-
 //	home_row(RIGHT);	
-//	home_row(LEFT);
 	center_row(RIGHT);
-//	skill();
 }
 
 void opcontrol()

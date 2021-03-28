@@ -25,6 +25,7 @@ int sgn(int input)
     return 0;
 }
 
+//drive -----------------------------------------------------------------------
 void set_tank(double l, double r)
 {
     LBd.move(l);
@@ -65,7 +66,7 @@ void reset_drive_encoder()
     LF.tare_position();
 }
 
-//imu
+//imu -----------------------------------------------------------------------
 void calibrate()
 {
     imu.reset();
@@ -81,7 +82,7 @@ double get_angle()
     return imu.get_rotation();
 }
 
-//intake
+//intakes -----------------------------------------------------------------------
 void set_intake(int input)
 {
     LIntake.move(input);
@@ -105,9 +106,43 @@ void reset_intake()
     RIntake.set_zero_position(0);
 }
 
-//all
+//all -----------------------------------------------------------------------
 void reset_all_encoders()
 {
     reset_drive_encoder();
 	reset_intake();
 }
+
+//temperature -----------------------------------------------------------------------
+double get_lintake_temp(){
+    return LIntake.get_temperature();
+}
+
+double get_rintake_temp(){
+    return RIntake.get_temperature();
+}
+
+double get_rbu_temp(){
+    return RBu.get_temperature();
+}
+
+double get_rbd_temp(){
+    return RBd.get_temperature();
+}
+
+double get_rf_temp(){
+    return RF.get_temperature();
+}
+
+double get_lbd_temp(){
+    return LBd.get_temperature();
+}
+
+double get_lbu_temp(){
+    return LBu.get_temperature();
+}
+
+double get_lf_temp(){
+    return LF.get_temperature();
+}
+

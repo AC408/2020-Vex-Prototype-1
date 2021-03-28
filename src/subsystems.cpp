@@ -53,13 +53,29 @@ void intake_control(void *)
     }
 }
 
+void display_sensors(){
+    pros::lcd::set_text(1, "heading"+std::to_string(get_angle()));
+    pros::lcd::set_text(2, "l_encoder"+std::to_string(get_left_pos()));
+    pros::lcd::set_text(3, "r_encoder"+std::to_string(get_right_pos()));
+    pros::lcd::set_text(4, "intake"+std::to_string(get_intake_pos()));
+}
+
+void display_temp(){
+    pros::lcd::set_text(0, "LIntake"+std::to_string(get_lintake_temp()));
+    pros::lcd::set_text(1, "RIntake"+std::to_string(get_rintake_temp()));
+    pros::lcd::set_text(2, "LBD"+std::to_string(get_lbd_temp()));
+    pros::lcd::set_text(3, "LBU"+std::to_string(get_lbu_temp()));                
+    pros::lcd::set_text(4, "LF"+std::to_string(get_lf_temp()));
+    pros::lcd::set_text(5, "RBD"+std::to_string(get_rbd_temp()));
+    pros::lcd::set_text(6, "RBU"+std::to_string(get_rbu_temp()));
+    pros::lcd::set_text(7, "RF"+std::to_string(get_rf_temp()));                
+}
+
 void sensors(void*){
     while(true)
     {
-        pros::lcd::set_text(1, "heading"+std::to_string(get_angle()));
-        pros::lcd::set_text(2, "l_encoder"+std::to_string(get_left_pos()));
-        pros::lcd::set_text(3, "r_encoder"+std::to_string(get_right_pos()));
-        pros::lcd::set_text(4, "intake"+std::to_string(get_intake_pos()));
+        display_sensors();
+        // display_temp();
         pros::delay(100);
     }
 }

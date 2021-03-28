@@ -8,12 +8,10 @@
 void chassis_control(void *);
 
 void deploy();
-
-void test();
-
-void skill();
-
 void home_row(int side);
 void center_row(int side);
+
+void skill();
+void test();
 
 #endif

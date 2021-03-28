@@ -19,6 +19,10 @@ double targetTheta = 0,
         theta_tolerance = 0,
         last_desired = 0,
         in_to_encoder = 50;
+    
+double initial_theta = 0,
+        initial_left_dist = 0,
+        initial_right_dist = 0;
 
 bool isSettled = false;
 
@@ -38,6 +42,7 @@ void set_angle(double angle, double omega = 118, double alpha = 5, double theta_
     isSettled = false;
     state = 1;
     last_desired = targetTheta;
+    initial_theta = get_angle();
 }
 
 void set_dist(double dist, double speed = 118, double accel = 5, double tol = 100, double gain = .15){ //100 dist is approx 1 inch
@@ -49,6 +54,8 @@ void set_dist(double dist, double speed = 118, double accel = 5, double tol = 10
     tolerance = tol;
     isSettled = false;
     state = 2;
+    initial_left_dist = get_left_pos();
+    initial_right_dist = get_right_pos();
 }
   
 //pid thread
@@ -69,6 +76,14 @@ void chassis_control(void *)
     double outputLeft = 0;
     double outputRight = 0;
 
+    double current_angle = 0;
+    double current_left_dist = 0;
+    double current_right_dist = 0;
+
+    double escape = 0;
+    double left_escape = 0;
+    double right_escape = 0;
+
     while(true){
         switch(state){
             case 1: //absolute angle
@@ -87,6 +102,9 @@ void chassis_control(void *)
                     if (abs(outputTheta) > omegaCap)
                         outputTheta = omegaCap * signTheta;
 
+                    if(abs(outputTheta) < 10)
+                        outputTheta = 10 * signTheta;
+
                     if (abs(errorTheta) < theta_tolerance)
                     {
                         isSettled = true;
@@ -95,6 +113,23 @@ void chassis_control(void *)
                         set_tank(0, 0);
                         break;
                     }
+
+                    current_angle = get_angle();
+                    if(abs(current_angle - initial_theta)<5){
+                        escape ++;
+                    } else {
+                        escape = 0;
+                    } 
+                    initial_theta = current_angle;
+
+                    if(escape > 50){
+                        isSettled = true;
+                        targetTheta = signTheta = outputTheta = errorTheta = 0;
+                        state = 0;
+                        set_tank(0, 0);
+                        break;
+                    }
+
                     pros::lcd::set_text(5, "left"+std::to_string(outputTheta));
                     pros::lcd::set_text(6, "right"+std::to_string(-outputTheta));
                     set_tank(outputTheta, -outputTheta);    
@@ -120,10 +155,16 @@ void chassis_control(void *)
                         velCap = speedLimit;
 
                     if (abs(outputLeft) > velCap)
-                        outputLeft = velCap;
+                        outputLeft = velCap * signLeft;
 
                     if (abs(outputRight) > velCap)
-                        outputRight = velCap;
+                        outputRight = velCap * signRight;
+
+                    if(abs(outputLeft) < 10)
+                        outputLeft = 10 * signLeft;
+
+                    if(abs(outputRight) < 10)
+                        outputLeft = 10 * signRight;
 
                     if (abs(errorLeft) < tolerance && abs(errorRight) < tolerance)
                     {
@@ -133,6 +174,39 @@ void chassis_control(void *)
                         set_tank(0,0);
                         break;
                     }
+
+                    current_left_dist = get_left_pos();
+                    if(abs(current_left_dist - initial_left_dist)<5){
+                        left_escape ++;
+                    } else {
+                        left_escape = 0;
+                    } 
+                    initial_left_dist = current_left_dist;
+
+                    if(left_escape > 50){
+                        isSettled = true;
+                        targetLeft = targetRight = signLeft = signRight = outputLeft = outputRight = errorLeft = errorRight = 0;
+                        state = 0;
+                        set_tank(0,0);
+                        break;
+                    }
+
+                    current_right_dist = get_right_pos();
+                    if(abs(current_right_dist - initial_right_dist)<5){
+                        right_escape ++;
+                    } else {
+                        right_escape = 0;
+                    } 
+                    initial_right_dist = current_right_dist;
+
+                    if(right_escape > 50){
+                        isSettled = true;
+                        targetLeft = targetRight = signLeft = signRight = outputLeft = outputRight = errorLeft = errorRight = 0;
+                        state = 0;
+                        set_tank(0,0);
+                        break;
+                    }
+
                     pros::lcd::set_text(5, "left"+std::to_string(outputLeft));
                     pros::lcd::set_text(6, "right"+std::to_string(outputRight));
                     set_tank(outputLeft, outputRight);    
@@ -181,14 +255,96 @@ void outtake()
 
 void test()
 {
+}
+
+void home_row(int side)
+{
+    intake_state = IN;
+
+    //drive to middle goal
+    set_dist(50);
+    waitUntilSettled();
+
+    //turn to face middle goal
+    set_angle(side * (90 + STARTING_ANGLE));
+    waitUntilSettled();
+
+    //descore
+    set_dist(13.5, 118, 10, 100, .3);
+    pros::delay(600);
+    descore(2);
+
+    //let go of one ball
+    set_angle(side * (130 + STARTING_ANGLE), 118, 16, 8, 2.1);
+    waitUntilSettled();
+    outtake();
+    set_angle(side * (90 + STARTING_ANGLE), 118, 20, 8, 2.4);
+    pros::delay(200);
+    intake_state = IN;
+    waitUntilSettled();
+
+    //score a ball into the goal
+    set_dist(7);
+    waitUntilSettled();
+    intake_state = OUT;
+    pros::delay(600);
+    set_dist(-10);
+    waitUntilSettled();
+    set_dist(-10);
+    waitUntilSettled();
+    set_intake_brake(MOTOR_BRAKE_COAST);
+    intake_state = IN;
+
+    //turn to be parallel to wall
+    set_angle(side * STARTING_ANGLE, 118, 5, 2, 1.2);
+    waitUntilSettled();
+   
+    //drive to corner goal
+    set_dist(46, 118, 5, 100, .15);
+    waitUntilSettled();
+    
+    //turn to face corner goal
+    set_angle(side * (45 + STARTING_ANGLE), 118, 7, 2, 1.4);
+    waitUntilSettled();
+
+    //drive into corner
+    set_dist(23, 118, 10, 100, .3);
+    pros::delay(600);
+
+    //descore
+    descore(2);
+
+    //let go of one ball
+    set_angle(side * (120 + STARTING_ANGLE), 118, 11, 5, 2.1);
+    waitUntilSettled();
+    outtake();
+    set_angle(side * (45 + STARTING_ANGLE));
+    pros::delay(200);
+    intake_state = IN;
+    waitUntilSettled();
+
+    //score a ball into the goal
+    intake_state = IN;
+    set_dist(7);
+    waitUntilSettled();
+    intake_state = OUT;
+    pros::delay(600);
+
+    //back away from goal
+    set_dist(-13);
+    waitUntilSettled();
+}
+
+void center_row(int side)
+{
     intake_state = IN;
 
     //turn towards goal
-    set_angle(-80 * -1, 40, 5, 1, 2.1);
+    set_angle(-79 * side, 40, 5, 1, 2.1);
     waitUntilSettled();
 
     //drive to goal
-    set_dist(45, 118, 5, 120, .15);
+    set_dist(44.5, 118, 5, 120, .15);
     waitUntilSettled();
 
     //descore
@@ -198,7 +354,7 @@ void test()
     set_angle(STARTING_ANGLE - 30, 110, 15, 5, 2);
     waitUntilSettled();
     outtake();
-    set_angle(-80 * -1);
+    set_angle(-80 * side);
     waitUntilSettled();
 
     //score
@@ -207,8 +363,17 @@ void test()
     waitUntilSettled();
     intake_state = OUT;
     pros::delay(600);
-    set_dist(-10);
+    set_dist(-12.5);
     waitUntilSettled();    
+    
+    // //turn to center
+    // set_angle(12, 110, 15, 1, 2);
+    // waitUntilSettled();
+    // set_dist(34);
+    // waitUntilSettled();
+    // set_tank(80,80);
+    // pros::delay(500);
+    // set_tank(0,0);
 }
 
 void skill()
@@ -458,124 +623,4 @@ void skill()
     outtake();
     set_dist(-36);
     waitUntilSettled();
-
-}
-
-void home_row(int side)
-{
-    intake_state = IN;
-
-    //drive to middle goal
-    set_dist(50);
-    waitUntilSettled();
-
-    //turn to face middle goal
-    set_angle(side * (90 + STARTING_ANGLE));
-    waitUntilSettled();
-
-    //descore
-    set_dist(13.5, 118, 10, 100, .3);
-    pros::delay(600);
-    descore(2);
-
-    //let go of one ball
-    set_angle(side * (130 + STARTING_ANGLE), 118, 16, 8, 2.1);
-    waitUntilSettled();
-    outtake();
-    set_angle(side * (90 + STARTING_ANGLE), 118, 20, 8, 2.4);
-    pros::delay(200);
-    intake_state = IN;
-    waitUntilSettled();
-
-    //score a ball into the goal
-    set_dist(7);
-    waitUntilSettled();
-    intake_state = OUT;
-    pros::delay(600);
-    set_dist(-10);
-    waitUntilSettled();
-    set_dist(-10);
-    waitUntilSettled();
-    set_intake_brake(MOTOR_BRAKE_COAST);
-    intake_state = IN;
-
-    //turn to be parallel to wall
-    set_angle(side * STARTING_ANGLE, 118, 5, 2, 1.2);
-    waitUntilSettled();
-   
-    //drive to corner goal
-    set_dist(46, 118, 5, 100, .15);
-    waitUntilSettled();
-    
-    //turn to face corner goal
-    set_angle(side * (45 + STARTING_ANGLE), 118, 7, 2, 1.4);
-    waitUntilSettled();
-
-    //drive into corner
-    set_dist(23, 118, 10, 100, .3);
-    pros::delay(600);
-
-    //descore
-    descore(2);
-
-    //let go of one ball
-    set_angle(side * (120 + STARTING_ANGLE), 118, 11, 5, 2.1);
-    waitUntilSettled();
-    outtake();
-    set_angle(side * (45 + STARTING_ANGLE));
-    pros::delay(200);
-    intake_state = IN;
-    waitUntilSettled();
-
-    //score a ball into the goal
-    intake_state = IN;
-    set_dist(7);
-    waitUntilSettled();
-    intake_state = OUT;
-    pros::delay(600);
-
-    //back away from goal
-    set_dist(-13);
-    waitUntilSettled();
-}
-
-void center_row(int side)
-{
-    intake_state = IN;
-
-    //turn towards goal
-    set_angle(-79 * side, 40, 5, 1, 2.1);
-    waitUntilSettled();
-
-    //drive to goal
-    set_dist(44.5, 118, 5, 120, .15);
-    waitUntilSettled();
-
-    //descore
-    descore(3);
-
-    //release one ball
-    set_angle(STARTING_ANGLE - 30, 110, 15, 5, 2);
-    waitUntilSettled();
-    outtake();
-    set_angle(-80 * side);
-    waitUntilSettled();
-
-    //score
-    intake_state = IN;
-    set_dist(7);
-    waitUntilSettled();
-    intake_state = OUT;
-    pros::delay(600);
-    set_dist(-12.5);
-    waitUntilSettled();    
-    
-    // //turn to center
-    // set_angle(12, 110, 15, 1, 2);
-    // waitUntilSettled();
-    // set_dist(34);
-    // waitUntilSettled();
-    // set_tank(80,80);
-    // pros::delay(500);
-    // set_tank(0,0);
 }
