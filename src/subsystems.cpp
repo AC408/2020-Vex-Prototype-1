@@ -3,6 +3,7 @@
 pros::Controller master(CONTROLLER_MASTER);
 
 int intake_state = 0;
+int sensor_state = 0;
 int left = 0,
     right = 0;
 
@@ -78,8 +79,11 @@ void display_temp(){
 void sensors(void*){
     while(true)
     {
-        display_sensors();
-        // display_temp();
+        if(sensor_state = TEMP){
+            display_temp();
+        } else {
+            display_sensors();
+        }
         pros::delay(100);
     }
 }

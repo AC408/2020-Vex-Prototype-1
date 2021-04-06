@@ -34,6 +34,11 @@ void opcontrol()
 		else if(master.get_digital(DIGITAL_R2))		intake_state = OUT;
 		else										intake_state = STOP;
 		
+		if(master.get_digital(DIGITAL_L1)){
+			sensor_state = TEMP;
+		} else {
+			sensor_state = SENSOR;
+		}
 		pros::delay(20);
 	}
 }
