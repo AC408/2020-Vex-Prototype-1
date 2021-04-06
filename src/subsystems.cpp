@@ -3,6 +3,8 @@
 pros::Controller master(CONTROLLER_MASTER);
 
 int intake_state = 0;
+int left = 0,
+    right = 0;
 
 float curve_function(int x)
 {
@@ -13,8 +15,6 @@ float curve_function(int x)
 
 void drive_control(void *)
 {
-    int left = 0,
-        right = 0;
     set_drive_brake(MOTOR_BRAKE_COAST);
     while(true)
     {
@@ -34,13 +34,17 @@ void intake_control(void *)
 {
     set_intake_brake(MOTOR_BRAKE_COAST);
     while(true){
+        double intake_input = abs((left+right)/2);
+        if(intake_input<10){
+            intake_input = 127;
+        }
         switch(intake_state)
         {
             case IN:
-                set_intake(127);
+                set_intake(intake_input);
                 break;
             case OUT:
-                set_intake(-127);
+                set_intake(-intake_input);
                 break;
             case STOP:
                 set_intake(0);
