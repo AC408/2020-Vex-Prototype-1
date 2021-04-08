@@ -11,6 +11,7 @@ void initialize()
 	pros::delay(3000);
 	pros::Task sensor_t(sensors, nullptr, "name");
 	pros::Task intake_control_t(intake_control, nullptr, "name");
+	finish_calibrate(); //test if this works
 }
 
 void disabled() {}
@@ -36,6 +37,8 @@ void opcontrol()
 		
 		if(master.get_digital(DIGITAL_L1)){
 			sensor_state = TEMP;
+		} else if(master.get_digital(DIGITAL_L2)){
+			sensor_state = BATTERY;
 		} else {
 			sensor_state = SENSOR;
 		}

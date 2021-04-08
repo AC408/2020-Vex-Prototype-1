@@ -7,12 +7,14 @@
 #define SLOW_OUT 3
 #define CURVE_SCALE 2.2
 #define TEMP 1
-#define SENSOR 2
+#define BATTERY 2
+#define SENSOR 3
 
 void drive_control(void *);
 void intake_control(void *);
 void sensors(void *);
 void drive_control(void *);
+void finish_calibrate();
 
 extern int intake_state;
 extern pros::Controller master;
