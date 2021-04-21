@@ -10,6 +10,7 @@ void chassis_control(void *);
 void deploy();
 void home_row(int side);
 void center_row(int side);
+void new_auton(int side);
 
 void skill();
 void test();
